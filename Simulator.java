@@ -11,8 +11,18 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
+
+
+
+
 public class Simulator
 {
+	
+	public static void main(String [] args)
+	{
+		Simulator simulator = new Simulator();
+	}
+		
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
     private static final int DEFAULT_WIDTH = 120;
