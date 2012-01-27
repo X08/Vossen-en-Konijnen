@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -31,7 +33,9 @@ public class SimulatorView extends JFrame
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
-
+    private JFrame frame;
+    private static final String VERSION = "versie 0.0";
+    
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
@@ -45,17 +49,114 @@ public class SimulatorView extends JFrame
         setTitle("Fox and Rabbit Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
-        
+      
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
 
-        Container contents = getContentPane();
+        
+        JPanel contents = new JPanel();			//	Container is naar JPanel veranderd. En getContentpane is weggehaald.
+        contents.setLayout(new BorderLayout());
         contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
+      
+        //	main panel aanmaken,border, layout toevoegen. En contents panel aan de main panel toevoegen.
+    	JPanel mainPanel = (JPanel)getContentPane();
+    	mainPanel.setLayout(new BorderLayout(6, 6));
+        mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        mainPanel.add(contents, BorderLayout.CENTER);
+        
+        makeMenuBar();
+        
+        //	maak een balk met versie nummer onderaan de frame
+        JLabel statusLabel = new JLabel(VERSION);
+        mainPanel.add(statusLabel, BorderLayout.SOUTH);
+        
+        //	maak twee buttons bij
+        JPanel toolbar = new JPanel();
+        toolbar.setLayout(new GridLayout(20, 0));	//	(20, 0) werkt, maar misschien zijn er betere nummers
+        toolbar.setBorder(new EmptyBorder(20, 10, 20, 10));
+        
+        JButton step1 = new JButton("Step 1");
+        step1.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e) 
+        	{ 
+        		mainProgram.getSimulator().simulateOneStep();
+        	}
+        });
+        toolbar.add(step1);
+        
+        JButton step100 = new JButton("Step 100");
+        step100.addActionListener(new ActionListener()
+    	{
+        	public void actionPerformed(ActionEvent e) 
+        	{
+        		mainProgram.getSimulator().simulate(100);
+        	}
+        });
+        toolbar.add(step100);
+        
+        mainPanel.add(toolbar, BorderLayout.WEST);
+                  
         pack();
         setVisible(true);
+    }
+    
+    /**
+     * Maak de hoofdmenu aan
+     * @param frame   hoofd frame
+     */
+    private void makeMenuBar()
+    {
+        final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(); //	voor shortcuts
+
+        //	maak een menubalk aan.
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        
+        JMenu menu;
+        JMenuItem item;
+        
+        // maak een menu aan.
+        menu = new JMenu("File");
+        menuBar.add(menu);
+        
+        item = new JMenuItem("Open");
+        item.addActionListener(new ActionListener()
+    	{
+        	public void actionPerformed(ActionEvent e)
+        	{
+        
+        	}
+    	});
+        menu.add(item);
+        
+        menu.addSeparator();
+        
+        item = new JMenuItem("Quit");
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));
+        item.addActionListener(new ActionListener() 
+        {
+        	public void actionPerformed(ActionEvent e)
+        	{ 
+        		quit();
+        	}
+        });
+        menu.add(item);
+        
+        // Maak Help menu aan
+        menu = new JMenu("Help");
+        menuBar.add(menu);
+    }    
+
+    /**
+     * Quit menu om het programma af te sluiten.
+     */
+    private void quit()
+    {
+        System.exit(0);
     }
     
     /**
