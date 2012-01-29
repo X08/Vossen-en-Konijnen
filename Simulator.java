@@ -11,7 +11,7 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
-public class Simulator
+public class Simulator implements Runnable
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
@@ -32,13 +32,10 @@ public class Simulator
     // A graphical view of the simulation.
     private SimulatorView view;
     
-//    /**
-//     * Main methode
-//     */
-//    public static void main(String[] args)
-//    {
-//    	Simulator	view	=	new Simulator();
-//    }
+    //validate whether a thread is running.
+    private boolean threadStarted	=	false;
+    private int numSteps	=	0;
+    private Thread thread;
     
     /**
      * Construct a simulation field with default size.
@@ -46,6 +43,7 @@ public class Simulator
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        thread	=	new Thread(this);
     }
     
     /**
@@ -60,6 +58,7 @@ public class Simulator
             System.out.println("Using default values.");
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
+            thread	=	new Thread(this);
         }
         
         animals = new ArrayList<Animal>();
@@ -90,22 +89,52 @@ public class Simulator
      */
     public void simulate(int numSteps)
     {
-        for(int step = 1; step <= numSteps && view.isViable(field); step++) {
-            simulateOneStep();
-        }
+    	//voeg de waarde van de lokale numSteps variabele toe aan de globale.
+    	//numSteps verteld aan de Thread dat de aantal stappen moeten worden verhoogd.
+    	this.numSteps += numSteps;
+
+    	if (!threadStarted)	
+    		thread.start();
     }
     
+    /**
+     * Deze methode wordt alleen uitgevoerd als je de methode .start() gebruikt van de klasse Thread.
+     * Zonder de klasse (thread), wordt deze methode niet juist uitgevoerd.
+     */
+    public void run()
+    {
+    	//vertel aan de programma dat de thread in de permanente loop zit.
+    	threadStarted	=	true;
+    	
+    	while (numSteps > 0)
+    	{
+    		//draai deze loop totdat numSteps 0 is.
+	        while (numSteps!=0 && view.isViable(field))
+	        {
+	            simulateOneStep();
+	            numSteps--;
+	        }
+    	}
+    }
+    
+//    public void simulateOneStep()
+//    {
+//    	this.numSteps++;
+//    	if (! threadStarted)	thread.start();
+//    }
+
     /**
      * Run the simulation from its current state for a single step.
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
      */
-    public void simulateOneStep()
+    private void simulateOneStep()
     {
         step++;
 
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<Animal>();        
+        List<Animal> newAnimals = new ArrayList<Animal>();
+        
         // Let all rabbits act.
         for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
             Animal animal = it.next();
@@ -120,7 +149,7 @@ public class Simulator
 
         view.showStatus(step, field);
     }
-        
+    
     /**
      * Reset the simulation to a starting position.
      */
@@ -156,5 +185,15 @@ public class Simulator
                 // else leave the location empty.
             }
         }
+    }
+    
+    public SimulatorView getSimulatorView()
+    {
+    	return view;
+    }
+    
+    public Field getField()
+    {
+    	return field;
     }
 }

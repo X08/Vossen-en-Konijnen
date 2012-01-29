@@ -33,8 +33,7 @@ public class SimulatorView extends JFrame
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
-    private JFrame frame;
-    private static final String VERSION = "versie 0.0";
+    private static final String VERSION = "versie 0.0";		//	toegevoegd om versie nummer te kunnen neerzetten.
     
     /**
      * Create a view of the given width and height.
@@ -43,6 +42,8 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width)
     {
+    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//automatisch hele programma afsluiten, als de frame wordt gesloten.
+    	
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 
@@ -54,7 +55,6 @@ public class SimulatorView extends JFrame
         
         fieldView = new FieldView(height, width);
 
-        
         JPanel contents = new JPanel();			//	Container is naar JPanel veranderd. En getContentpane is weggehaald.
         contents.setLayout(new BorderLayout());
         contents.add(stepLabel, BorderLayout.NORTH);
@@ -75,7 +75,7 @@ public class SimulatorView extends JFrame
         
         //	maak twee buttons bij
         JPanel toolbar = new JPanel();
-        toolbar.setLayout(new GridLayout(20, 0));	//	(20, 0) werkt, maar misschien zijn er betere nummers
+        toolbar.setLayout(new GridLayout(20, 0));		//	(20, 0) werkt, maar misschien zijn er betere nummers
         toolbar.setBorder(new EmptyBorder(20, 10, 20, 10));
         
         JButton step1 = new JButton("Step 1");
@@ -83,7 +83,7 @@ public class SimulatorView extends JFrame
         {
         	public void actionPerformed(ActionEvent e) 
         	{ 
-        		mainProgram.getSimulator().simulateOneStep();
+        		MainProgram.getSimulator().simulate(1);
         	}
         });
         toolbar.add(step1);
@@ -93,7 +93,7 @@ public class SimulatorView extends JFrame
     	{
         	public void actionPerformed(ActionEvent e) 
         	{
-        		mainProgram.getSimulator().simulate(100);
+    			MainProgram.getSimulator().simulate(100);
         	}
         });
         toolbar.add(step100);
@@ -110,7 +110,7 @@ public class SimulatorView extends JFrame
      */
     private void makeMenuBar()
     {
-        final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(); //	voor shortcuts
+        final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(); 	//	voor shortcuts
 
         //	maak een menubalk aan.
         JMenuBar menuBar = new JMenuBar();
@@ -119,7 +119,7 @@ public class SimulatorView extends JFrame
         JMenu menu;
         JMenuItem item;
         
-        // maak een menu aan.
+        //	maak een menu aan.
         menu = new JMenu("File");
         menuBar.add(menu);
         
@@ -146,7 +146,7 @@ public class SimulatorView extends JFrame
         });
         menu.add(item);
         
-        // Maak Help menu aan
+        //	Maak Help menu aan
         menu = new JMenu("Help");
         menuBar.add(menu);
     }    
