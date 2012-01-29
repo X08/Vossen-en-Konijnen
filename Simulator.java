@@ -100,6 +100,7 @@ public class Simulator implements Runnable
     /**
      * Deze methode wordt alleen uitgevoerd als je de methode .start() gebruikt van de klasse Thread.
      * Zonder de klasse (thread), wordt deze methode niet juist uitgevoerd.
+     * De methode zorgt ervoor dat de thread door het aantal numSteps heen loopt.
      */
     public void run()
     {
@@ -116,12 +117,6 @@ public class Simulator implements Runnable
 	        }
     	}
     }
-    
-//    public void simulateOneStep()
-//    {
-//    	this.numSteps++;
-//    	if (! threadStarted)	thread.start();
-//    }
 
     /**
      * Run the simulation from its current state for a single step.
@@ -187,13 +182,21 @@ public class Simulator implements Runnable
         }
     }
     
-    public SimulatorView getSimulatorView()
-    {
-    	return view;
-    }
-    
-    public Field getField()
-    {
-    	return field;
-    }
+//    /**
+//     * getter voor SimulatorView view
+//     * @return SimulatorView view wordt geretourneerd
+//     */
+//    public SimulatorView getSimulatorView()
+//    {
+//    	return view;
+//    }
+//    
+//    /**
+//     * getter voor Field field
+//     * @return Field field wordt geretourneerd
+//     */
+//    public Field getField()
+//    {
+//    	return field;
+//    }
 }

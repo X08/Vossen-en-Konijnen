@@ -54,8 +54,9 @@ public class SimulatorView extends JFrame
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
-
-        JPanel contents = new JPanel();			//	Container is naar JPanel veranderd. En getContentpane is weggehaald.
+        
+        //	rechter panel wordt aangemaakt en bijbehorende componenten
+        JPanel contents = new JPanel();
         contents.setLayout(new BorderLayout());
         contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
@@ -73,11 +74,12 @@ public class SimulatorView extends JFrame
         JLabel statusLabel = new JLabel(VERSION);
         mainPanel.add(statusLabel, BorderLayout.SOUTH);
         
-        //	maak twee buttons bij
+        //	maak rechter panel aan.
         JPanel toolbar = new JPanel();
         toolbar.setLayout(new GridLayout(20, 0));		//	(20, 0) werkt, maar misschien zijn er betere nummers
         toolbar.setBorder(new EmptyBorder(20, 10, 20, 10));
         
+        //	Actionlister aan de knoppen toevoegen
         JButton step1 = new JButton("Step 1");
         step1.addActionListener(new ActionListener()
         {
@@ -88,6 +90,7 @@ public class SimulatorView extends JFrame
         });
         toolbar.add(step1);
         
+        //	Actionlister aan de knoppen toevoegen
         JButton step100 = new JButton("Step 100");
         step100.addActionListener(new ActionListener()
     	{
@@ -106,7 +109,6 @@ public class SimulatorView extends JFrame
     
     /**
      * Maak de hoofdmenu aan
-     * @param frame   hoofd frame
      */
     private void makeMenuBar()
     {
@@ -128,7 +130,7 @@ public class SimulatorView extends JFrame
     	{
         	public void actionPerformed(ActionEvent e)
         	{
-        
+//								mag wat zooi bij als het nodig is !!        
         	}
     	});
         menu.add(item);
@@ -136,7 +138,7 @@ public class SimulatorView extends JFrame
         menu.addSeparator();
         
         item = new JMenuItem("Quit");
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));	//	hotkey toekennen
         item.addActionListener(new ActionListener() 
         {
         	public void actionPerformed(ActionEvent e)
