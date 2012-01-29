@@ -92,9 +92,9 @@ public class Simulator implements Runnable
     	//voeg de waarde van de lokale numSteps variabele toe aan de globale.
     	//numSteps verteld aan de Thread dat de aantal stappen moeten worden verhoogd.
     	this.numSteps += numSteps;
-
-    	if (!threadStarted)	
-    		thread.start();
+    	
+    	// als thread nog niet gestart is, dan start het nu
+    	if (!threadStarted)	thread.start();
     }
     
     /**
@@ -106,7 +106,7 @@ public class Simulator implements Runnable
     	//vertel aan de programma dat de thread in de permanente loop zit.
     	threadStarted	=	true;
     	
-    	while (numSteps > 0)
+    	while (true)
     	{
     		//draai deze loop totdat numSteps 0 is.
 	        while (numSteps!=0 && view.isViable(field))
