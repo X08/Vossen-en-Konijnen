@@ -34,7 +34,7 @@ public abstract class Animal
      * @param newAnimals A list to receive newly born animals.
      */
     abstract public void act(List<Animal> newAnimals);
-
+    
     /**
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
@@ -88,4 +88,10 @@ public abstract class Animal
     {
         return field;
     }
+    
+    /**
+     * An animal can breed if it has reached the breeding age.
+     * @return true if the animal can breed, false otherwise.
+     */
+    protected abstract boolean canBreed();
 }
