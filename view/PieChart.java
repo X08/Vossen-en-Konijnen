@@ -15,12 +15,22 @@ import logic.Counter;
  */
 public class PieChart extends JPanel
 {
-	// width of the frame
+	//	width of the frame
 	private int width;
-	// height of the frame
+	//	height of the frame
 	private int height;
 	
+	//	hashmap die hoeveelheid per kleur bij houdt
 	private HashMap<Color, Counter> stats;
+	
+	
+	/**
+	 * leeg constructor
+	 */
+	public PieChart()
+	{
+		
+	}
 	
 	/**
 	 * stats wordt toegewezen
@@ -32,7 +42,7 @@ public class PieChart extends JPanel
 	}
 	
 	/**
-	 * bepaald de grote van de pie chart
+	 * bepaald de frame grote van de piechart
 	 * @param width
 	 * @param height
 	 */
@@ -43,7 +53,7 @@ public class PieChart extends JPanel
 	}
 	
 	/**
-	 * maak de pie chart
+	 * maak de piechart
 	 * @param g Graphic component
 	 */
 	@Override
@@ -62,6 +72,7 @@ public class PieChart extends JPanel
 			total += stats.get(color).getCount();
 		}
 		
+		// kleurt de piechart
 		for (Color color : stats.keySet())
 		{
 			if (stats.get(color).getCount() > 0)
@@ -75,9 +86,9 @@ public class PieChart extends JPanel
 				startAngle += arcAngle + 1;
 			}
 		}
-		
-		g.setColor(Color.black);
+
 		//	paint de outline van de piechart
+		g.setColor(Color.BLACK);
 		g.drawArc(50, 50, width, height, 0, 360);
 		
 	}
