@@ -39,13 +39,15 @@ public class SimulatorView extends JFrame
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private PieChart pieChart;
+    private Histogram histogram;
+    private HistoryView historyView;
 	private ThreadRunner threadRunner;
     // A map for storing colors for participants in the simulation
 	private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
     private static final String VERSION = "versie 0.0";		//	toegevoegd om versie nummer te kunnen neerzetten. 
-    private int viewsToDisplay = 4;
+    private int viewsToDisplay = 5;
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
@@ -68,6 +70,8 @@ public class SimulatorView extends JFrame
         
         makePieChart(height, width);
         
+        makeHistogram(height, width);
+        
 		makeMainFrame();
         
 		makeMenuBar();
@@ -88,7 +92,7 @@ public class SimulatorView extends JFrame
         
         // maak view panel (tweede laag) aan, layout en border van view panel.
         JPanel viewPanel = new JPanel();
-        viewPanel.setLayout(new GridLayout(2, 3));
+        viewPanel.setLayout(new GridLayout(2, 2));
         viewPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         
         mainFrame.add(viewPanel, BorderLayout.CENTER);	//	view panel toevoegen aan main frame.
@@ -115,28 +119,31 @@ public class SimulatorView extends JFrame
         // histoGram panel
         JPanel diagram = new JPanel();
         diagram.setLayout(new BorderLayout());
-//        diagram.add(null, BorderLayout.CENTER);
+        diagram.add(histogram, BorderLayout.CENTER);
         
         viewPanel.add(diagram);	//	diagram panel toevoegen aan view panel
         
         
         // history panel
-        JPanel empty1 = new JPanel();
-        empty1.setLayout(new BorderLayout());
+        JTextArea history  = new JTextArea();
+//        empty1.setLayout(new BorderLayout());
 //        history.add(null, BorderLayout.CENTER);
-        viewPanel.add(empty1);
+//       history.append(historyView.stats(getPopulationDetails()));
+//        Field tempField = MainProgram.getSimulator().getField();
+//        history.append(stats.getPopulationDetails(tempField));
+        viewPanel.add(history);
         
-        // empty panel
-        JPanel empty = new JPanel();
-        empty.setLayout(new BorderLayout());
-//        history.add(null, BorderLayout.CENTER);
-        viewPanel.add(empty);
-        
-        //	empty panel 
-        JPanel empty2 = new JPanel();
-        empty2.setLayout(new BorderLayout());
-        viewPanel.add(empty2);
-        
+//        // empty panel
+//        JPanel empty = new JPanel();
+//        empty.setLayout(new BorderLayout());
+////        history.add(null, BorderLayout.CENTER);
+//        viewPanel.add(empty);
+//        
+//        //	empty panel 
+//        JPanel empty2 = new JPanel();
+//        empty2.setLayout(new BorderLayout());
+//        viewPanel.add(empty2);
+//        
         
         
         //	maak toolbar panel (tweede laag, linkerkant) aan, layout en border van toolbar panel
@@ -427,6 +434,18 @@ public class SimulatorView extends JFrame
     }
     
     /**
+     * maak histogram aan
+     * @param height,width hoogte en breedte van een histogram
+     */
+    private void makeHistogram(int height, int width)
+    {
+    	histogram = new Histogram();
+    	histogram.setSize(height * 2, width * 2);
+    	histogram.stats(getPopulationDetails());
+    	histogram.repaint();
+    }
+    
+    /**
      * Getter om threadRunner object op te halen
      * @return threadRunner object van type ThreadRunner
      */
@@ -528,14 +547,14 @@ public class SimulatorView extends JFrame
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         fieldView.repaint();
-        
-        viewsToDisplay++;
-        if (viewsToDisplay >= 1)
-        {
+
+        	histogram.stats(getPopulationDetails());
+        	histogram.repaint();
+
         	pieChart.stats(getPopulationDetails());
         	pieChart.repaint();
         	viewsToDisplay = 0;
-        }
+
     }
     
     /**
