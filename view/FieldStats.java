@@ -46,14 +46,33 @@ public class FieldStats
         for(Class key : counters.keySet()) {
             Counter info = counters.get(key);
             int stringLength = info.getName().length();
-            buffer.append(info.getName().substring(6,stringLength));
+            buffer.append(info.getName().substring(6,stringLength));	//	show info
             buffer.append(": ");
             buffer.append(info.getCount());
             buffer.append(' ');
         }
         return buffer.toString();
     }
-    
+    /**
+     * Get details of what is in the field.
+     * @return A string describing what is in the field.
+     */
+    public String getHistory(Field field)
+    {
+        StringBuffer buffer = new StringBuffer();
+        if(!countsValid) {
+            generateCounts(field);
+        }
+        for(Class key : counters.keySet()) {
+            Counter info = counters.get(key);
+            int stringLength = info.getName().length();
+            buffer.append(info.getName().substring(6,stringLength));	//	show info
+            buffer.append(": ");
+            buffer.append(info.getCount());
+            buffer.append(' ');
+        }
+        return buffer.toString();
+    }
     /**
      * Invalidate the current set of statistics; reset all 
      * counts to zero.
