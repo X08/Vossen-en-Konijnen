@@ -64,10 +64,16 @@ public class Histogram extends JPanel
 		//	hoogte van de blok
 		int height;
 		//	breedte van de blok
-		int size = this.width / stats.size();
+		int width;
 		
-		
-		int width = size - 2;
+		if (!stats.isEmpty())
+		{
+			width = this.width / stats.size();
+		}
+		else
+		{
+			width = 4;
+		}
 		
 		//	blok counter
 		int blok = 0;
