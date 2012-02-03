@@ -24,11 +24,11 @@ public interface Actor
 	void act(List<Actor> newActors);
     
 	
-//    /**
-//     * Check whether the animal is alive or not.
-//     * @return true if the animal is still alive.
-//     */
-//	boolean isAlive();
+    /**
+     * Check whether the animal is alive or not.
+     * @return true if the animal is still alive.
+     */
+	boolean isAlive();
 //	
 //    /**
 //     * Indicate that the animal is no longer alive.

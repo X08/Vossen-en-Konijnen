@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
+import javax.swing.JTextField;
+
 import view.Field;
 import view.SimulatorView;
 
 import logic.Location;
 import logic.Randomizer;
-import main.MainProgram;
 import model.Actor;
 import model.Animal;
 import model.Bear;
@@ -50,7 +51,7 @@ public class Simulator
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
-    private int step;
+    private int step = 0;
     // A graphical view of the simulation.
     private SimulatorView view;
 
@@ -162,6 +163,24 @@ public class Simulator
     public Field getField()
     {
     	return field;
+    }
+    
+    /**
+     * getter voor step
+     * @return steps aantal step
+     */
+    public int getStep()
+    {
+    	return step;
+    }
+    
+    /**
+     * setter voor animationSpeed
+     * @param animationSpeed2
+     */
+    public static void setAnimationSpeed(int animationSpeed)
+    {
+    	Simulator.animationSpeed = animationSpeed;
     }
     
     /**

@@ -27,6 +27,8 @@ public class Hunter implements Actor
     private Field field;
     // The hunter's position in the field.
     private Location location;
+    // Determine if the hunter is alive
+    private boolean alive;
     
     // Characteristics shared by all hunters (class variables).
 
@@ -42,6 +44,15 @@ public class Hunter implements Actor
     {
         this.field = field;
         this.location = location;
+    }
+
+    /**
+     * Check whether the hunter is alive or not.
+     * @return true if the hunter is still alive.
+     */
+    public boolean isAlive()
+    {
+    	return alive;
     }
     
     /**
