@@ -28,7 +28,7 @@ public class ThreadRunner implements Runnable
     {
     	if (numSteps == 0)
     	{
-    		this.numSteps = 1;
+    		this.numSteps = 100;
     		infinite = true;
     	}
     	else

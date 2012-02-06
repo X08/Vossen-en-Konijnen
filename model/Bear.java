@@ -23,7 +23,7 @@ public class Bear extends Animal
     // The age to which a bear can live.
     private static int MAX_AGE = 190;
     // The likelihood of a bear breeding.
-    private static double BREEDING_PROBABILITY = 0.02;
+    private static double BREEDING_PROBABILITY = 0.06;
     // The maximum number of births.
     private static int MAX_LITTER_SIZE = 1;
     // The food value of a single rabbit and a single fox. In effect, this is the

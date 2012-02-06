@@ -7,8 +7,9 @@ import view.Field;
 //import java.util.Random;
 
 import logic.Location;
+import logic.Counter;
 import view.FieldStats;
-import view.FieldStats;
+import model.Animal;
 
 
 /**
@@ -31,6 +32,11 @@ public class Hunter implements Actor
     private Location location;
     // Determine if the hunter is alive
     private boolean alive;
+    
+    private FieldStats counters;
+    
+    
+    
     
     // Characteristics shared by all hunters (class variables).
 
@@ -99,39 +105,43 @@ public class Hunter implements Actor
             Object animal = field.getObjectAt(where);
             if(animal instanceof Rabbit) 
             {
-            	//if(!(counters.get(Rabbit) < 200)) {
+            	
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
-                { 
-                    rabbit.setDead();
+                {
+                	if(!(view.FieldStats.rabbitCount <= 1200)) {
+                    rabbit.setDead(); }
                     return where;
                 }
-            //}
+            
             }
             else if (animal instanceof Fox)
             {
-            	//if(!(counters.get(Fox) < 200)) {
+            	
                 Fox fox = (Fox) animal;
                 if(fox.isAlive()) 
-                { 
+                {
+                	
+                	if(!(view.FieldStats.foxCount <= 800)) {
                     fox.setDead();
+                    System.out.println("Hunter killed a Fox"); }
                     return where;
-               // }
-            	}
-            	
+                }         	
             }
             else if (animal instanceof Bear)
             {
             	
-            	//if(!(counters.get(Bear) < 200)) {
+            	
                 Bear bear = (Bear) animal;
                 if(bear.isAlive()) 
-                { 
+                {
+                	if(!(view.FieldStats.bearCount <= 150)) {
                     bear.setDead();
+                    System.out.println("Hunter killed a Bear"); }
                     return where;
                 }
             	
-            //}
+            
             }
         }
         return null;
