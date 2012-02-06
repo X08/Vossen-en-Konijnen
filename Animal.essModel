@@ -1,0 +1,96 @@
+[Diagram:]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=0
+
+[Box: ::view - ::<<Unknown>>::JFrame]
+X=20
+Y=40
+
+[Box: ::view - ::<<Unknown>>::JPanel]
+X=534
+Y=40
+
+[Box: ::view - ::view::Field]
+X=944
+Y=40
+
+[Box: ::view - ::view::FieldStats]
+X=739
+Y=40
+
+[Box: ::view - ::view::Histogram]
+X=430
+Y=395
+
+[Box: ::view - ::view::HistoryView]
+X=225
+Y=395
+
+[Box: ::view - ::view::PieChart]
+X=847
+Y=395
+
+[Box: ::view - ::view::SimulatorView]
+X=20
+Y=395
+
+[Box: ::view - ::view::SimulatorView.FieldView]
+X=635
+Y=395
+
+[Diagram: ::view]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=1
+
+[Box:  - ::controller]
+X=1045
+Y=40
+
+[Box:  - ::Default]
+X=1250
+Y=40
+
+[Box:  - ::logic]
+X=840
+Y=40
+
+[Box:  - ::main]
+X=635
+Y=40
+
+[Box:  - ::model]
+X=430
+Y=40
+
+[Box:  - ::runner]
+X=225
+Y=40
+
+[Box:  - ::view]
+X=20
+Y=40
+
+[Diagram:]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=1
+
+[Box: ::main - ::controller::Simulator]
+X=20
+Y=187
+
+[Box: ::main - ::main::MainProgram]
+X=45
+Y=40
+
+[Diagram: ::main]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=1
+
