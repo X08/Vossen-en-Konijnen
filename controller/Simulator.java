@@ -18,6 +18,7 @@ import model.Actor;
 import model.Animal;
 import model.Bear;
 import model.Fox;
+import model.Grass;
 import model.Hunter;
 import model.Rabbit;
 
@@ -36,16 +37,18 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a bear will be created in any given grid position.    
-    private static final double BEAR_CREATION_PROBABILITY = 0.01;
+    private static final double BEAR_CREATION_PROBABILITY = 0.015;
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
     // The probability that a hunter will be created in any given grid position.
-    private static final double HUNTER_CREATION_PROBABILITY = 0.0005;
+    private static final double HUNTER_CREATION_PROBABILITY = 0.0025;
+    // the probability that grass will grow.
+    private static final double GRASS_CREATION_PROBABILITY = 0.03;
     
     //	animation speed of the thread
-    private static int animationSpeed = 0;//100;
+    private static int animationSpeed = 1;//100;
     // List of Actors in the field.
     private List<Actor> actors;
     // The current state of the field.
@@ -89,6 +92,7 @@ public class Simulator
         view.setColor(Fox.class, Color.BLUE);
         view.setColor(Bear.class, Color.CYAN);
         view.setColor(Hunter.class, Color.RED);
+        view.setColor(Grass.class, Color.GREEN);
         // Setup a valid starting point.
         reset();
     }
@@ -197,20 +201,25 @@ public class Simulator
                     Fox fox = new Fox(true, field, location);
                     actors.add(fox);
                 }
-                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
                     actors.add(rabbit);
                 }
-                else if(rand.nextDouble() <= BEAR_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= BEAR_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Bear bear = new Bear(true, field, location);
                     actors.add(bear);
                 }
-                else if(rand.nextDouble() <= HUNTER_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= HUNTER_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
+                }
+                if(rand.nextDouble() <= GRASS_CREATION_PROBABILITY) {
+                	Location location = new Location(row, col);
+                	Grass grass = new Grass(true, field, location);
+                	actors.add(grass);
                 }
                 // else leave the location empty.
             }
