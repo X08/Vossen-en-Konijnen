@@ -10,7 +10,7 @@ package logic;
  * @author Ieme, Jermo, Yisong
  * @version 2012.01.29
  */
-public class Counter
+public class 
 {
     // A name for this type of simulation participant
     private String name;
