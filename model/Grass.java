@@ -12,7 +12,7 @@ import logic.Randomizer;
 public class Grass implements Actor {
   // The field for grass
   private Field field;
-  // The hunter's position in the field.
+  // The grass position in the field.
   private Location location;
   // Determine if the grass is alive
   private boolean alive;
@@ -21,11 +21,11 @@ public class Grass implements Actor {
   //The age at which grass can start to breed.
   private static int BREEDING_AGE = 3;
   // The age to which grass can live.
-  private static int MAX_AGE = 50;
+  private static int MAX_AGE = 1000;
   // The likelihood of grass breeding.
-  private static double BREEDING_PROBABILITY = 0.15;
+  private static double BREEDING_PROBABILITY = 0.5;
   // The maximum number of births.
-  private static int MAX_LITTER_SIZE = 3;
+  private static int MAX_LITTER_SIZE = 10;
   //A shared random number generator to control breeding.
   private static final Random rand = Randomizer.getRandom();
 
