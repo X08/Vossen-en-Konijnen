@@ -7,6 +7,7 @@ import logic.Counter;
 
 
 
+
 /**
  * This class collects and provides some statistical data on the state 
  * of a field. It is flexible: it will create and maintain a counter 

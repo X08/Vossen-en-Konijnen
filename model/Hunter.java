@@ -7,6 +7,8 @@ import view.Field;
 //import java.util.Random;
 
 import logic.Location;
+import view.FieldStats;
+import view.FieldStats;
 
 
 /**
@@ -97,25 +99,31 @@ public class Hunter implements Actor
             Object animal = field.getObjectAt(where);
             if(animal instanceof Rabbit) 
             {
+            	//if(!(counters.get(Rabbit) < 200)) {
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
                 { 
                     rabbit.setDead();
                     return where;
                 }
+            //}
             }
             else if (animal instanceof Fox)
             {
+            	//if(!(counters.get(Fox) < 200)) {
                 Fox fox = (Fox) animal;
                 if(fox.isAlive()) 
                 { 
                     fox.setDead();
                     return where;
-                }
+               // }
+            	}
             	
             }
             else if (animal instanceof Bear)
             {
+            	
+            	//if(!(counters.get(Bear) < 200)) {
                 Bear bear = (Bear) animal;
                 if(bear.isAlive()) 
                 { 
@@ -123,6 +131,7 @@ public class Hunter implements Actor
                     return where;
                 }
             	
+            //}
             }
         }
         return null;
