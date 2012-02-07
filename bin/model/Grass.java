@@ -1,4 +1,4 @@
-package model;
+package bin.model;
 
 import java.util.List;
 import java.util.Iterator;
@@ -6,8 +6,8 @@ import java.util.Iterator;
 
 //import java.util.Random;
 
-import logic.Field;
-import logic.Location;
+import bin.logic.Field;
+import bin.logic.Location;
 
 
 /**
@@ -101,7 +101,7 @@ public class Grass implements Actor
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
                 {
-                	if(!(logic.FieldStats.rabbitCount <= 1000)) {
+                	if(!(bin.logic.FieldStats.rabbitCount <= 1000)) {
                     rabbit.setDead();
                     }
                     return where;
@@ -113,7 +113,7 @@ public class Grass implements Actor
                 Fox fox = (Fox) animal; 
                 if(fox.isAlive()) 
                 {
-                	if(!(logic.FieldStats.foxCount <= 400)) {
+                	if(!(bin.logic.FieldStats.foxCount <= 400)) {
                     fox.setDead(); }
                     return where;
                 }
@@ -125,7 +125,7 @@ public class Grass implements Actor
                 Bear bear = (Bear) animal;
                 if(bear.isAlive()) 
                 { 
-                	if(!(logic.FieldStats.bearCount <= 400)) {
+                	if(!(bin.logic.FieldStats.bearCount <= 400)) {
                 	bear.setDead(); }
                     return where;
                 }
@@ -136,7 +136,7 @@ public class Grass implements Actor
             	Wolf wolf = (Wolf) animal;
                 if(wolf.isAlive()) 
                 { 
-                	if(!(logic.FieldStats.wolfCount <= 400)) {
+                	if(!(bin.logic.FieldStats.wolfCount <= 400)) {
                 	wolf.setDead(); }
                     return where;
                 }

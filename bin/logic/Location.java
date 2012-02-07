@@ -1,4 +1,4 @@
-package logic;
+package bin.logic;
 /**
  * Represent a location in a rectangular grid.
  * 

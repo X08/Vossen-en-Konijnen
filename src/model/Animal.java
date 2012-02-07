@@ -1,13 +1,13 @@
-package model;
+package src.model;
 
 import java.util.List;
 import java.util.Random;
 
 
 
-import logic.Field;
-import logic.Location;
-import logic.Randomizer;
+import src.logic.Field;
+import src.logic.Location;
+import src.logic.Randomizer;
 
 
 /**

@@ -1,12 +1,12 @@
-package model;
+package bin.model;
 
 import java.util.Iterator;
 import java.util.List;
 
 
 
-import logic.Field;
-import logic.Location;
+import bin.logic.Field;
+import bin.logic.Location;
 
 /**
  * A simple model of a rabbit.

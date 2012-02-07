@@ -1,13 +1,13 @@
-package model;
+package src.model;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 
-import logic.Counter;
-import logic.Field;
-import logic.Location;
-import main.MainProgram;
+import src.logic.Counter;
+import src.logic.Field;
+import src.logic.Location;
+import src.main.MainProgram;
 
 
 /**

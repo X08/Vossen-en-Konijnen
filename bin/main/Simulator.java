@@ -1,4 +1,4 @@
-package main;
+package bin.main;
 
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
-import view.SimulatorView;
+import bin.view.SimulatorView;
 
-import logic.Field;
-import logic.Location;
-import logic.Randomizer;
+import bin.logic.Field;
+import bin.logic.Location;
+import bin.logic.Randomizer;
 
-import model.Actor;
-import model.Animal;
-import model.Bear;
-import model.Fox;
-import model.Grass;
-import model.Hunter;
-import model.Rabbit;
-import model.Wolf;
+import bin.model.Actor;
+import bin.model.Animal;
+import bin.model.Bear;
+import bin.model.Fox;
+import bin.model.Grass;
+import bin.model.Hunter;
+import bin.model.Rabbit;
+import bin.model.Wolf;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -146,7 +146,7 @@ public class Simulator
      */
     public void reset()
     {
-		view.getThreadRunner().stop();			
+    	view.getThreadRunner().stop();			
         step = 0;
         actors.clear();
         populate();

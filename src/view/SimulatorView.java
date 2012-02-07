@@ -1,4 +1,4 @@
-package view;
+package src.view;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,17 +7,17 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
 
-import runner.ThreadRunner;
+import src.runner.ThreadRunner;
 
-import logic.Counter;
-import logic.Field;
-import logic.FieldStats;
-import main.MainProgram;
-import main.Simulator;
-import model.Bear;
-import model.Fox;
-import model.Rabbit;
-import model.Wolf;
+import src.logic.Counter;
+import src.logic.Field;
+import src.logic.FieldStats;
+import src.main.MainProgram;
+import src.main.Simulator;
+import src.model.Bear;
+import src.model.Fox;
+import src.model.Rabbit;
+import src.model.Wolf;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package view;
+package bin.view;
 
 import java.awt.Color;
 import java.awt.Dimension;

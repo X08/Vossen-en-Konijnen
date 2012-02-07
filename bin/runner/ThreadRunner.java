@@ -1,7 +1,7 @@
-package runner;
+package bin.runner;
 
-import main.MainProgram;
-import main.Simulator;
+import bin.main.MainProgram;
+import bin.main.Simulator;
 /**
  * Allow the animation to be shown.
  * 

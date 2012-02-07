@@ -1,11 +1,11 @@
-package view;
+package bin.view;
 
 import java.awt.Color;
 import java.util.HashMap;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-import logic.Counter;
+import bin.logic.Counter;
 
 /**
  * The Class represent the population of actors in a piechart

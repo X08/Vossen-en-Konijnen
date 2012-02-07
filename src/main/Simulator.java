@@ -1,4 +1,4 @@
-package main;
+package src.main;
 
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
-import view.SimulatorView;
+import src.view.SimulatorView;
 
-import logic.Field;
-import logic.Location;
-import logic.Randomizer;
+import src.logic.Field;
+import src.logic.Location;
+import src.logic.Randomizer;
 
-import model.Actor;
-import model.Animal;
-import model.Bear;
-import model.Fox;
-import model.Grass;
-import model.Hunter;
-import model.Rabbit;
-import model.Wolf;
+import src.model.Actor;
+import src.model.Animal;
+import src.model.Bear;
+import src.model.Fox;
+import src.model.Grass;
+import src.model.Hunter;
+import src.model.Rabbit;
+import src.model.Wolf;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field

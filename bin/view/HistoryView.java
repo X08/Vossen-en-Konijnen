@@ -1,4 +1,4 @@
-package view;
+package bin.view;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import javax.swing.JTextArea;
 
 
 
-import logic.Counter;
+import bin.logic.Counter;
 
 public class HistoryView extends JPanel
 {

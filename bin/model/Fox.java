@@ -1,13 +1,13 @@
-package model;
+package bin.model;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 
-import logic.Counter;
-import logic.Field;
-import logic.Location;
-import main.MainProgram;
+import bin.logic.Counter;
+import bin.logic.Field;
+import bin.logic.Location;
+import bin.main.MainProgram;
 
 
 /**

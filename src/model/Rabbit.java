@@ -1,12 +1,12 @@
-package model;
+package src.model;
 
 import java.util.Iterator;
 import java.util.List;
 
 
 
-import logic.Field;
-import logic.Location;
+import src.logic.Field;
+import src.logic.Location;
 
 /**
  * A simple model of a rabbit.
