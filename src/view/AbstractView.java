@@ -1,10 +1,10 @@
-package src.view;
+package bin.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashMap;
 
-import src.logic.Counter;
+import bin.logic.Counter;
 
 interface AbstractView
 {

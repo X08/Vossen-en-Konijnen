@@ -141,6 +141,15 @@ public class Hunter implements Actor
                     return where;
                 }
         	}
+            else if (animal instanceof Grass)
+            {
+            	Grass grass = (Grass) animal;
+                if(grass.isAlive()) 
+                {
+                	grass.setDead();
+                    return where;
+                }
+            }
         }
         return null;
     }

@@ -1,4 +1,4 @@
-package src.main;
+package bin.main;
 import static org.junit.Assert.*;
 
 import org.junit.Test;

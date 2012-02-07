@@ -22,6 +22,9 @@ import bin.model.Hunter;
 import bin.model.Rabbit;
 import bin.model.Wolf;
 
+import bin.model.Plant;
+import bin.model.Grass;
+
 /**
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
@@ -43,7 +46,7 @@ public class Simulator
     // The probability that a fox will be created in any given grid position.
     private static double fox_creation_probability = 0.09;
     // The probability that a rabbit will be created in any given grid position.
-    private static double rabbit_creation_probability = 0.4;    
+    private static double rabbit_creation_probability = 0.3;    
     // The probability that a hunter will be created in any given grid position.
     private static double hunter_creation_probability = 0.05;
     
@@ -125,6 +128,13 @@ public class Simulator
 				        {
 				        	Animal animal = (Animal) actor;
 				        	if(! animal.isAlive()) {
+				                it.remove();
+				            }
+				        }
+				        else if (actor instanceof Plant)
+				        {
+				        	Plant plant = (Plant) actor;
+				        	if(! plant.isAlive()) {
 				                it.remove();
 				            }
 				        }
@@ -307,7 +317,7 @@ public class Simulator
                 }
                 else if(rand.nextDouble() <= grass_creation_probability) {
                     Location location = new Location(row, col);
-                    Grass grass = new Grass(field, location);
+                    Grass grass = new Grass(true, field, location);
                     actors.add(grass);
                 }
                 // else leave the location empty.

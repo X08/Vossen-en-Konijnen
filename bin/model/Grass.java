@@ -1,192 +1,210 @@
 package bin.model;
 
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 
-//import java.util.Random;
 
 import bin.logic.Field;
 import bin.logic.Location;
 
-
 /**
- * 
- * A class representing shared characteristics of grasss.
- * A simple model of a grass
- * Grasss move and shoot.
+ * A simple model of a grass.
+ * Grasss age, move, breed, and die.
  * 
  * @author Ieme, Jermo, Yisong
  * @version 2012.01.29
  */
-public class Grass implements Actor
+public class Grass extends Plant
 {
+    // Characteristics shared by all grass (class variables).
 
-//    // Whether the grass is alive or not.
-//    private boolean alive = true;
-    // The grass's field.
-    private Field field;
-    // The grass's position in the field.
-    private Location location;
-    // Determine if the grass is alive
-    private boolean alive;
-    
-    // Characteristics shared by all grasss (class variables).
+    // The age at which a grass can start to breed.
+    private static int breeding_age = 1;
+    // The age to which a grass can live.
+    private static int max_age = 250;
+    // The likelihood of a grass breeding.
+    private static double breeding_probability = 0.1;
+    // The maximum number of births.
+    private static int max_litter_size = 12;
+    // kans op infectie
 
-    // A shared random number generator to control breeding.
-//    private static final Random rand = Randomizer.getRandom();
     
     /**
-     * Create a grass. 
+     * Create a new grass. A grass may be created with age
+     * zero (a new born) or with a random age.
+     * 
+     * @param randomAge If true, the grass will have a random age.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Grass(Field field, Location location)
+    public Grass(boolean randomAge, Field field, Location location)
     {
-        this.field = field;
-        this.location = location;
-    }
-
-    /**
-     * Check whether the grass is alive or not.
-     * @return true if the grass is still alive.
-     */
-    public boolean isAlive()
-    {
-    	return alive;
+        super(field, location);
+        setAge(0);
+        if(randomAge) {
+        	setAge(getRandom().nextInt(max_age));
+        }
     }
     
     /**
-     * This is what the bear does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
-     * or die of old age.
-     * @param field The field currently occupied.
-     * @param newbears A list to return newly born bears.
+     * This is what the grass does most of the time - it runs 
+     * around. Sometimes it will breed or die of old age.
+     * @param newGrasss A list to return newly born grasss.
      */
-    
     public void act(List<Actor> newGrass)
     {
-    	// Move towards a source of food if found.
-        Location newLocation = findAnimal();
-        if(newLocation == null) { 
-            // No food found - try to move to a free location.
-            newLocation = getField().freeAdjacentLocation(getLocation());
+        incrementAge();
+        if(isAlive()) {
+            
+        	giveBirth(newGrass);            
+            // Try to move into a free location.
+            Location newLocation = getField().freeAdjacentLocation(getLocation());
+            if(newLocation != null) {
+                setLocation(newLocation);
+            }
+            else {
+                // Overcrowding.
+                setDead();
+            }
         }
-        // See if it was possible to move.
-        if(newLocation != null) {
-            setLocation(newLocation);
-        }
-        else{
-            	// Overcrowding.
-            	setDead();
-        	}
     }
+
+    /**
+     * Zorgt er voor dat er geen nakomeling worden geboren als er te weinig voesel zijn.
+     * @return true als genoeg voedsel zijn
+     * @return false als niet genoeg voedsel zijn
+     */
+    public boolean survivalInstinct()
+    {
+//    	MainProgram.getSimulator().getSimulatorView().getStats().getPopulation();
+    	return true;
+    }
+    
+	
+    /**
+     * check if grass is surround by grassvirus.
+     * @return true if it is
+     */
 
 
     /**
-     * Look for an animal adjacent to the current location.
-     * Only the first live animal is shoot.
-     * @return Where an animal is found, or null if it wasn't.
+     * Check whether or not this grass is to give birth at this step.
+     * New births will be made into free adjacent locations.
+     * @param newGrasss A list to return newly born grasss.
      */
-    private Location findAnimal()
+    private void giveBirth(List<Actor> newGrass)
     {
+        // New grasss are born into adjacent locations.
+        // Get a list of adjacent free locations.
         Field field = getField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) 
-            {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) 
-                {
-                	if(!(bin.logic.FieldStats.rabbitCount <= 1000)) {
-                    rabbit.setDead();
-                    }
-                    return where;
-                }
-            }
-            else if (animal instanceof Fox)
-            {
-            	
-                Fox fox = (Fox) animal; 
-                if(fox.isAlive()) 
-                {
-                	if(!(bin.logic.FieldStats.foxCount <= 400)) {
-                    fox.setDead(); }
-                    return where;
-                }
-            	
-            }
-            else if (animal instanceof Bear)
-            {
-            	
-                Bear bear = (Bear) animal;
-                if(bear.isAlive()) 
-                { 
-                	if(!(bin.logic.FieldStats.bearCount <= 400)) {
-                	bear.setDead(); }
-                    return where;
-                }
-            }
-            else if (animal instanceof Wolf)
-            {
-            	
-            	Wolf wolf = (Wolf) animal;
-                if(wolf.isAlive()) 
-                { 
-                	if(!(bin.logic.FieldStats.wolfCount <= 400)) {
-                	wolf.setDead(); }
-                    return where;
-                }
-        	}
-        }
-        return null;
-    }
-    
-    /**
-     * Indicate that the grass is no longer alive.
-     * It is removed from the field.
-     */
-    public void setDead()
-    {
-//        alive = false;
-        if(location != null) {
-            field.clear(location);
-            location = null;
-            field = null;
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        int births = breed();
+        for(int b = 0; b < births && free.size() > 0; b++) {
+            Location loc = free.remove(0);
+            Grass young = new Grass(false, field, loc);
+            newGrass.add(young);
         }
     }
+
+    /**
+     * A grass can breed if it has reached the breeding age.
+     * @return true if the grass can breed, false otherwise.
+     */
+    protected boolean canBreed()
+    {
+        return getAge() >= getBreedingAge();
+    }
+
+    /**
+     * setter voor breeding_age
+     * @param breeding_age
+     */
+    public static void setBreedingAge(int breeding_age)
+    {
+    	if (breeding_age >= 0)
+    		Grass.breeding_age = breeding_age;
+    }
+    
     
     /**
-     * Return the grass's location.
-     * @return The grass's location.
+     * setter voor max_age
+     * @param max_age
      */
-    public Location getLocation()
+    public static void setMaxAge(int max_age)
     {
-        return location;
+    	if (max_age >= 1)
+    		Grass.max_age = max_age;
     }
     
     /**
-     * Place the grass at the new location in the given field.
-     * @param newLocation The grass's new location.
+     * setter voor breeding_probability
+     * @param breeding_probability
      */
-    public void setLocation(Location newLocation)
+    public static void setBreedingProbability(double breeding_probability)
     {
-        if(location != null) {
-            field.clear(location);
-        }
-        location = newLocation;
-        field.place(this, newLocation);
+    	if (breeding_probability >= 0)
+    		Grass.breeding_probability = breeding_probability;
     }
     
     /**
-     * Return the grass's field.
-     * @return Field the grass's field.
+     * setter voor max_litter_size
+     * @param max_litter_size
      */
-    public Field getField()
+    public static void setMaxLitterSize(int max_litter_size)
     {
-        return field;
-    }   
+    	if (max_litter_size >= 1)
+    		Grass.max_litter_size = max_litter_size;
+    }  
+    
+    /**
+     * default settings
+     */
+    public static void setDefault()
+    {
+    	breeding_age = 1;
+    	max_age = 100;
+    	breeding_probability = 0.02;
+    	max_litter_size = 100;
+    }
+    
+    /**
+     * Getter om breeding_age op te halen
+     */
+    protected int getBreedingAge()
+    {
+    	return breeding_age;
+    }
+    
+    /**
+     * returns the maximum age of a grass can live
+     * @return int maximum age of a grass can live
+     */
+    protected int getMaxAge()
+    {
+    	return max_age;
+    }
+    
+    /**
+     * Getter om max_litter_size op te halen
+     * @return max_litter_size maximum litter
+     */
+    protected int getMaxLitterSize()
+    {
+    	return max_litter_size;
+    }
+    
+    /**
+     * Getter om breeding_probability op te halen
+     * @return breeding_probability breeding kansen
+     */
+    protected double getBreedingProbability()
+    {
+    	return breeding_probability;
+    }
+    
+    /**
+     * getter om grass_infection op te halen
+     * @return grass_infection
+     */
 }

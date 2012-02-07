@@ -11,42 +11,39 @@ import bin.logic.Randomizer;
 
 
 /**
- * A class representing shared characteristics of animals.
+ * A class representing shared characteristics of plants.
  * 
  * @author Ieme, Jermo, Yisong
  * @version 2012.01.29
  */
-public abstract class Animal implements Actor, RabbitSickness
+public abstract class Plant implements Actor
 {
-    // Whether the animal is alive or not.
+    // Whether the plant is alive or not.
     private boolean alive;
-    // determine if the animal is infected or not
+    // determine if the plant is infected or not
     private boolean infected;
-    // The animal's field.
+    // The plant's field.
     private Field field;
-    // The animal's position in the field.
+    // The plant's position in the field.
     private Location location;
-    // An animal's age.
+    // An plant's age.
     private int age;
-    // An animal's food level, which is increased by eating.
+    // An plant's food level, which is increased by eating.
     private int foodLevel;
 
-    // The food value of a single animal. In effect, this is the
-    // number of steps an animal can go before it has to eat again.
-    public static final int WOLFS_FOOD_VALUE = 27;
-    public static final int FOX_FOOD_VALUE = 18;
-    public static final int RABBIT_FOOD_VALUE = 9;
-    public static final int GRASS_FOOD_VALUE = 4;
+    // The food value of a single plant. In effect, this is the
+    // number of steps an plant can go before it has to eat again.
+    public static final int GRASS_FOOD_VALUE = 12;
     // A shared random number generator to control breeding.
     protected static final Random rand = Randomizer.getRandom();
     
     /**
-     * Create a new animal at location in field.
+     * Create a new plant at location in field.
      * 
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location)
+    public Plant(Field field, Location location)
     {
         alive = true;
         this.field = field;
@@ -54,11 +51,11 @@ public abstract class Animal implements Actor, RabbitSickness
     }
     
     /**
-     * Make this animal act - that is: make it do
+     * Make this plant act - that is: make it do
      * whatever it wants/needs to do.
-     * @param newAnimals A list to receive newly born animals.
+     * @param newPlants A list to receive newly born plants.
      */
-    public abstract void act(List<Actor> newAnimals);
+    public abstract void act(List<Actor> newPlants);
     
     /**
      * Zorgt er voor dat er geen nakomeling worden geboren als er te weinig voesel zijn.
@@ -67,24 +64,9 @@ public abstract class Animal implements Actor, RabbitSickness
      */
     public abstract boolean survivalInstinct();
     
-	/**
-	 * @return true if infected
-	 * @return false if not infected
-	 */
-	public abstract boolean isInfected();
-	
-	/**
-	 * setter voor infected
-	 * @param infected
-	 */
-	public void setInfected(boolean infected)
-	{
-		this.infected = infected;
-	}
-	
     /**
-     * Check whether the animal is alive or not.
-     * @return true if the animal is still alive.
+     * Check whether the plant is alive or not.
+     * @return true if the plant is still alive.
      */
     public boolean isAlive()
     {
@@ -92,7 +74,7 @@ public abstract class Animal implements Actor, RabbitSickness
     }
 
     /**
-     * Indicate that the animal is no longer alive.
+     * Indicate that the plant is no longer alive.
      * It is removed from the field.
      */
     protected void setDead()
@@ -106,7 +88,7 @@ public abstract class Animal implements Actor, RabbitSickness
     }
 
     /**
-     * Increase the age. This could result in the animal's death.
+     * Increase the age. This could result in the plant's death.
      */
     protected void incrementAge()
     {
@@ -117,14 +99,14 @@ public abstract class Animal implements Actor, RabbitSickness
     }
     
     /**
-     * returns the maximum age of an animal type can live
-     * @return agemaximum age of an animal type can live
+     * returns the maximum age of an plant type can live
+     * @return agemaximum age of an plant type can live
      */
     protected abstract int getMaxAge();
     
     /**
-     * Return the animal's location.
-     * @return The animal's location.
+     * Return the plant's location.
+     * @return The plant's location.
      */
     protected Location getLocation()
     {
@@ -132,8 +114,8 @@ public abstract class Animal implements Actor, RabbitSickness
     }
     
     /**
-     * Place the animal at the new location in the given field.
-     * @param newLocation The animal's new location.
+     * Place the plant at the new location in the given field.
+     * @param newLocation The plant's new location.
      */
     public void setLocation(Location newLocation)
     {
@@ -145,8 +127,8 @@ public abstract class Animal implements Actor, RabbitSickness
     }
     
     /**
-     * Return the animal's field.
-     * @return The animal's field.
+     * Return the plant's field.
+     * @return The plant's field.
      */
     protected Field getField()
     {
@@ -168,14 +150,14 @@ public abstract class Animal implements Actor, RabbitSickness
     }
     
     /**
-     * An animal can breed if it has reached the breeding age.
-     * @return true if the animal can breed, false otherwise.
+     * An plant can breed if it has reached the breeding age.
+     * @return true if the plant can breed, false otherwise.
      */
     protected abstract boolean canBreed();
     
     /**
-     * Returns an animals current age
-     * @return age int the current age of an animal
+     * Returns an plants current age
+     * @return age int the current age of an plant
      */
 	protected int getAge() 
 	{
@@ -183,7 +165,7 @@ public abstract class Animal implements Actor, RabbitSickness
 	}
 	
     /**
-     * set an animals current age
+     * set an plants current age
      * @param age int set the current age
      */
 	protected void setAge(int age) 
@@ -192,7 +174,7 @@ public abstract class Animal implements Actor, RabbitSickness
 	}
 	
     /**
-     * Returns an animals current foodlevel
+     * Returns an plants current foodlevel
      * @return foodLevel int current foodlevel
      */
 	protected int getFoodLevel() 
@@ -201,7 +183,7 @@ public abstract class Animal implements Actor, RabbitSickness
 	}
 	
     /**
-     * set an animals current foodLevel
+     * set an plants current foodLevel
      * @param foodLevel int set the current foodLevel
      */
 	protected void setFoodLevel(int foodLevel) 
@@ -222,10 +204,6 @@ public abstract class Animal implements Actor, RabbitSickness
 	 * getter om infected op te halen
 	 * @return infected boolean
 	 */
-	protected boolean getInfected()
-	{
-		return infected;
-	}
 	
     /**
      * Getter om MAX_LITTER_SIZE op te halen

@@ -1,4 +1,4 @@
-package src.model;
+package bin.model;
 
 import java.util.List;
 import java.util.Iterator;
@@ -6,8 +6,8 @@ import java.util.Iterator;
 
 //import java.util.Random;
 
-import src.logic.Field;
-import src.logic.Location;
+import bin.logic.Field;
+import bin.logic.Location;
 
 
 /**
@@ -101,7 +101,7 @@ public class Hunter implements Actor
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
                 {
-                	if(!(src.logic.FieldStats.rabbitCount <= 1000)) {
+                	if(!(bin.logic.FieldStats.rabbitCount <= 1000)) {
                     rabbit.setDead();
                     }
                     return where;
@@ -113,7 +113,7 @@ public class Hunter implements Actor
                 Fox fox = (Fox) animal; 
                 if(fox.isAlive()) 
                 {
-                	if(!(src.logic.FieldStats.foxCount <= 400)) {
+                	if(!(bin.logic.FieldStats.foxCount <= 400)) {
                     fox.setDead(); }
                     return where;
                 }
@@ -125,7 +125,7 @@ public class Hunter implements Actor
                 Bear bear = (Bear) animal;
                 if(bear.isAlive()) 
                 { 
-                	if(!(src.logic.FieldStats.bearCount <= 400)) {
+                	if(!(bin.logic.FieldStats.bearCount <= 400)) {
                 	bear.setDead(); }
                     return where;
                 }
@@ -136,11 +136,20 @@ public class Hunter implements Actor
             	Wolf wolf = (Wolf) animal;
                 if(wolf.isAlive()) 
                 { 
-                	if(!(src.logic.FieldStats.wolfCount <= 400)) {
+                	if(!(bin.logic.FieldStats.wolfCount <= 400)) {
                 	wolf.setDead(); }
                     return where;
                 }
         	}
+            else if (animal instanceof Grass)
+            {
+            	Grass grass = (Grass) animal;
+                if(grass.isAlive()) 
+                {
+                	grass.setDead();
+                    return where;
+                }
+            }
         }
         return null;
     }

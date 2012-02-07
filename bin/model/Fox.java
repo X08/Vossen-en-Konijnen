@@ -98,10 +98,10 @@ public class Fox extends Animal
     	for (Class c : classStats.keySet()) {
     		Counter info = classStats.get(c);
     		
-    		if (info.getName().equals("model.Fox")) {
+    		if (info.getName().equals("bin.model.Fox")) {
     			foxCount = info.getCount();
     		}
-    		if (info.getName().equals("model.Rabbit")) {
+    		if (info.getName().equals("bin.model.Rabbit")) {
     			rabbitCount = info.getCount();
     		}
     	}

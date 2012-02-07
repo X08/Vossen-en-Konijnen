@@ -1,4 +1,4 @@
-package src.view;
+package bin.view;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import javax.swing.JTextArea;
 
 
 
-import src.logic.Counter;
+import bin.logic.Counter;
 
 public class HistoryView extends JPanel
 {
@@ -57,7 +57,7 @@ public class HistoryView extends JPanel
         for(Color color : stats.keySet()){
             Counter info = stats.get(color);
             int stringLength = info.getName().length();
-            buffer.append(info.getName().substring(6,stringLength));	//	show info
+            buffer.append(info.getName().substring(10,stringLength));	//	show info
             buffer.append(": ");
             buffer.append(info.getCount());
             buffer.append(' ');

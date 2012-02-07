@@ -1,4 +1,4 @@
-package src.model;
+package bin.model;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.Iterator;
 
 
 
-import src.logic.Counter;
-import src.logic.Field;
-import src.logic.Location;
-import src.main.MainProgram;
+import bin.logic.Counter;
+import bin.logic.Field;
+import bin.logic.Location;
+import bin.main.MainProgram;
 
 /**
  * A simple model of a Bear.
@@ -101,13 +101,13 @@ public class Bear extends Animal
     	for (Class c : classStats.keySet()) {
     		Counter info = classStats.get(c);
     		
-    		if (info.getName().equals("model.Wolf")) {
+    		if (info.getName().equals("bin.model.Wolf")) {
     			wolfCount = info.getCount();
     		}
-    		if (info.getName().equals("model.Fox")) {
+    		if (info.getName().equals("bin.model.Fox")) {
     			foxCount = info.getCount();
     		}
-    		if (info.getName().equals("model.Bear")) {
+    		if (info.getName().equals("bin.model.Bear")) {
     			bearCount = info.getCount();
     		}
     	}

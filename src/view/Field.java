@@ -1,12 +1,12 @@
-package src.view;
+package bin.view;
 import java.util.Collections;
 //import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import src.logic.Location;
-import src.logic.Randomizer;
+import bin.logic.Location;
+import bin.logic.Randomizer;
 
 /**
  * Represent a rectangular grid of field positions.

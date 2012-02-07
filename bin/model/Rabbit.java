@@ -24,7 +24,7 @@ public class Rabbit extends Animal
     // The age to which a rabbit can live.
     private static int max_age = 100;
     // The likelihood of a rabbit breeding.
-    private static double breeding_probability = 0.1;
+    private static double breeding_probability = 0.04;
     // The maximum number of births.
     private static int max_litter_size = 12;
     // kans op infectie
@@ -39,12 +39,17 @@ public class Rabbit extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
+    
     public Rabbit(boolean randomAge, Field field, Location location)
     {
         super(field, location);
-        setAge(0);
         if(randomAge) {
-        	setAge(getRandom().nextInt(max_age));
+            setAge(getRandom().nextInt(max_age));
+            setFoodLevel(getRandom().nextInt(GRASS_FOOD_VALUE));
+        }
+        else {
+            setAge(0);
+            setFoodLevel(GRASS_FOOD_VALUE);
         }
     }
     
@@ -59,8 +64,12 @@ public class Rabbit extends Animal
         if(isAlive()) {
             isThereVirus();
         	giveBirth(newRabbits);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
+        	Location newLocation = findFood();
+            if(newLocation == null) { 
+                // No food found - try to move to a free location.
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
             }
@@ -69,6 +78,26 @@ public class Rabbit extends Animal
                 setDead();
             }
         }
+    }
+    
+    private Location findFood()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object plant = field.getObjectAt(where);
+            if(plant instanceof Grass) {
+                Grass grass = (Grass) plant;
+                if(grass.isAlive()) { 
+                    grass.setDead();
+                    setFoodLevel(GRASS_FOOD_VALUE);
+                    return where;
+                }
+            }
+        }
+        return null;
     }
 
     /**

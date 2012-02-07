@@ -1,4 +1,4 @@
-package src.main;
+package bin.main;
 
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -7,20 +7,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
-import src.view.SimulatorView;
+import bin.view.SimulatorView;
 
-import src.logic.Field;
-import src.logic.Location;
-import src.logic.Randomizer;
+import bin.logic.Field;
+import bin.logic.Location;
+import bin.logic.Randomizer;
 
-import src.model.Actor;
-import src.model.Animal;
-import src.model.Bear;
-import src.model.Fox;
-import src.model.Grass;
-import src.model.Hunter;
-import src.model.Rabbit;
-import src.model.Wolf;
+import bin.model.Actor;
+import bin.model.Animal;
+import bin.model.Bear;
+import bin.model.Fox;
+import bin.model.Grass;
+import bin.model.Hunter;
+import bin.model.Rabbit;
+import bin.model.Wolf;
+
+import bin.model.Plant;
+import bin.model.Grass;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -43,7 +46,7 @@ public class Simulator
     // The probability that a fox will be created in any given grid position.
     private static double fox_creation_probability = 0.09;
     // The probability that a rabbit will be created in any given grid position.
-    private static double rabbit_creation_probability = 0.4;    
+    private static double rabbit_creation_probability = 0.3;    
     // The probability that a hunter will be created in any given grid position.
     private static double hunter_creation_probability = 0.05;
     
@@ -128,6 +131,13 @@ public class Simulator
 				                it.remove();
 				            }
 				        }
+				        else if (actor instanceof Plant)
+				        {
+				        	Plant plant = (Plant) actor;
+				        	if(! plant.isAlive()) {
+				                it.remove();
+				            }
+				        }
 				    }
 	        	}
         	}
@@ -146,7 +156,7 @@ public class Simulator
      */
     public void reset()
     {
-		view.getThreadRunner().stop();			
+    	view.getThreadRunner().stop();			
         step = 0;
         actors.clear();
         populate();
@@ -307,7 +317,7 @@ public class Simulator
                 }
                 else if(rand.nextDouble() <= grass_creation_probability) {
                     Location location = new Location(row, col);
-                    Grass grass = new Grass(field, location);
+                    Grass grass = new Grass(true, field, location);
                     actors.add(grass);
                 }
                 // else leave the location empty.

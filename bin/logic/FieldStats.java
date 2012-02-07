@@ -52,24 +52,25 @@ public class FieldStats
         for(Class key : counters.keySet()) {
             Counter info = counters.get(key);
             int stringLength = info.getName().length();
-            buffer.append(info.getName().substring(6,stringLength));	//	show info
+            buffer.append(info.getName().substring(10,stringLength));	//	show info
             buffer.append(": ");
             buffer.append(info.getCount());
             buffer.append(' ');
             
             
-            if(info.getName().equals("model.Fox")) {
-            	foxCount = info.getCount(); }
+            if(info.getName().equals("bin.model.Fox")) {
+            	foxCount = info.getCount();
+            }
             
-            if(info.getName().equals("model.Bear")) {
+            if(info.getName().equals("bin.model.Bear")) {
                 bearCount = info.getCount(); }
             
-            if(info.getName().equals("model.Rabbit")) {
+            if(info.getName().equals("bin.model.Rabbit")) {
                 rabbitCount = info.getCount();
                 // System.out.println(rabbitCount); rabbitCount wordt geupdate, Hunter neemt niet over.
                 }
             
-            if(info.getName().equals("model.Wolf")) {
+            if(info.getName().equals("bin.model.Wolf")) {
                 wolfCount = info.getCount(); }
         }
         return buffer.toString();
