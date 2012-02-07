@@ -1,4 +1,4 @@
-package bin.logic;
+package src.logic;
 import java.util.Collections;
 //import java.util.Iterator;
 import java.util.LinkedList;

@@ -1,12 +1,11 @@
-package bin.model;
+package src.model;
 
-import java.util.Iterator;
 import java.util.List;
 
 
 
-import bin.logic.Field;
-import bin.logic.Location;
+import src.logic.Field;
+import src.logic.Location;
 
 /**
  * A simple model of a grass.
@@ -20,14 +19,14 @@ public class Grass extends Plant
     // Characteristics shared by all grass (class variables).
 
     // The age at which a grass can start to breed.
-    private static int breeding_age = 1;
+    private static int breeding_age = 3;
     // The age to which a grass can live.
-    private static int max_age = 250;
+    private static int max_age = 12;
     // The likelihood of a grass breeding.
-    private static double breeding_probability = 0.1;
+    private static double breeding_probability = 0.09;
     // The maximum number of births.
-    private static int max_litter_size = 12;
-    // kans op infectie
+    private static int max_litter_size = 6;
+    
 
     
     /**

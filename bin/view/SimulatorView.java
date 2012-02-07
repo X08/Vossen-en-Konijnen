@@ -163,6 +163,8 @@ public class SimulatorView extends JFrame {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				threadRunner.startRun(0);
+				Component c = (Component)e.getSource(); 
+			    c.getToolkit().beep();
 			}
 		});
 		toolbar.add(start);
@@ -171,6 +173,8 @@ public class SimulatorView extends JFrame {
 		stop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				threadRunner.stop();
+				Component c = (Component)e.getSource(); 
+			    c.getToolkit().beep();
 			}
 		});
 		toolbar.add(stop);
@@ -183,14 +187,6 @@ public class SimulatorView extends JFrame {
 			}
 		});
 		toolbar.add(reset);
-		
-		JButton virus = new JButton("Virus");
-		reset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//MainProgram.getSimulator().reset();   Maak willekeurige konijnen ziek.
-			}
-		});
-		toolbar.add(virus);
 	
 		
 		// maak een balk met versie nummer onderaan de frame en voeg toe aan de

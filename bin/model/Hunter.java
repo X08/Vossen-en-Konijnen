@@ -146,7 +146,8 @@ public class Hunter implements Actor
             	Grass grass = (Grass) animal;
                 if(grass.isAlive()) 
                 {
-                	grass.setDead();
+                	if(!(bin.logic.FieldStats.grassCount <= 400)) {
+                	grass.setDead(); }
                     return where;
                 }
             }

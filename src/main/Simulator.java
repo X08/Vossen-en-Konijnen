@@ -1,4 +1,4 @@
-package bin.main;
+package src.main;
 
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -7,23 +7,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
-import bin.view.SimulatorView;
+import src.view.SimulatorView;
 
-import bin.logic.Field;
-import bin.logic.Location;
-import bin.logic.Randomizer;
+import src.logic.Field;
+import src.logic.Location;
+import src.logic.Randomizer;
 
-import bin.model.Actor;
-import bin.model.Animal;
-import bin.model.Bear;
-import bin.model.Fox;
-import bin.model.Grass;
-import bin.model.Hunter;
-import bin.model.Rabbit;
-import bin.model.Wolf;
+import src.model.Actor;
+import src.model.Animal;
+import src.model.Bear;
+import src.model.Fox;
+import src.model.Grass;
+import src.model.Hunter;
+import src.model.Rabbit;
+import src.model.Wolf;
 
-import bin.model.Plant;
-import bin.model.Grass;
+import src.model.Plant;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -50,7 +49,7 @@ public class Simulator
     // The probability that a hunter will be created in any given grid position.
     private static double hunter_creation_probability = 0.05;
     
-    private static double grass_creation_probability = 0.020;
+    private static double grass_creation_probability = 0.1;
 
     
     //	animation speed of the thread
@@ -276,9 +275,9 @@ public class Simulator
     	bear_creation_probability = 0.020;
         wolf_creation_probability = 0.020;
         fox_creation_probability = 0.09;
-        rabbit_creation_probability = 0.4;    
-        hunter_creation_probability = 0.001;
-        grass_creation_probability = 0.020;
+        rabbit_creation_probability = 0.3;    
+        hunter_creation_probability = 0.05;
+        grass_creation_probability = 0.1;
     }
     
     /**

@@ -1,4 +1,4 @@
-package bin.main;
+package src.main;
 
 
 /**

@@ -33,9 +33,9 @@ public abstract class Animal implements Actor, RabbitSickness
 
     // The food value of a single animal. In effect, this is the
     // number of steps an animal can go before it has to eat again.
-    public static final int WOLFS_FOOD_VALUE = 27;
-    public static final int FOX_FOOD_VALUE = 18;
-    public static final int RABBIT_FOOD_VALUE = 9;
+    public static final int WOLFS_FOOD_VALUE = 32;
+    public static final int FOX_FOOD_VALUE = 24;
+    public static final int RABBIT_FOOD_VALUE = 18;
     public static final int GRASS_FOOD_VALUE = 4;
     // A shared random number generator to control breeding.
     protected static final Random rand = Randomizer.getRandom();

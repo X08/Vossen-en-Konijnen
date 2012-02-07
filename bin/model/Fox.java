@@ -161,6 +161,14 @@ public class Fox extends Animal
                     return where;
                 }
             }
+            if(animal instanceof Grass) {
+                Grass grass = (Grass) animal;
+                if(grass.isAlive()) { 
+                    grass.setDead();
+                    setFoodLevel(RABBIT_FOOD_VALUE);
+                    return where;
+                }
+            }
         }
         return null;
     }

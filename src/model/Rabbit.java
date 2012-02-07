@@ -1,12 +1,12 @@
-package bin.model;
+package src.model;
 
 import java.util.Iterator;
 import java.util.List;
 
 
 
-import bin.logic.Field;
-import bin.logic.Location;
+import src.logic.Field;
+import src.logic.Location;
 
 /**
  * A simple model of a rabbit.
@@ -162,6 +162,7 @@ public class Rabbit extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
+            //boolean inf = isInfected();
             Rabbit young = new Rabbit(false, field, loc);
             newRabbits.add(young);
         }

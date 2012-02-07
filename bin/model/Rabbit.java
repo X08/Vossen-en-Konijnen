@@ -162,6 +162,7 @@ public class Rabbit extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
+            //boolean inf = isInfected();
             Rabbit young = new Rabbit(false, field, loc);
             newRabbits.add(young);
         }

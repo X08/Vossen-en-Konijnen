@@ -1,4 +1,4 @@
-package bin.view;
+package src.view;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,17 +7,17 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
 
-import bin.runner.ThreadRunner;
+import src.runner.ThreadRunner;
 
-import bin.logic.Counter;
-import bin.logic.Field;
-import bin.logic.FieldStats;
-import bin.main.MainProgram;
-import bin.main.Simulator;
-import bin.model.Bear;
-import bin.model.Fox;
-import bin.model.Rabbit;
-import bin.model.Wolf;
+import src.logic.Counter;
+import src.logic.Field;
+import src.logic.FieldStats;
+import src.main.MainProgram;
+import src.main.Simulator;
+import src.model.Bear;
+import src.model.Fox;
+import src.model.Rabbit;
+import src.model.Wolf;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -163,6 +163,8 @@ public class SimulatorView extends JFrame {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				threadRunner.startRun(0);
+				Component c = (Component)e.getSource(); 
+			    c.getToolkit().beep();
 			}
 		});
 		toolbar.add(start);
@@ -171,6 +173,8 @@ public class SimulatorView extends JFrame {
 		stop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				threadRunner.stop();
+				Component c = (Component)e.getSource(); 
+			    c.getToolkit().beep();
 			}
 		});
 		toolbar.add(stop);
@@ -183,14 +187,6 @@ public class SimulatorView extends JFrame {
 			}
 		});
 		toolbar.add(reset);
-		
-		JButton virus = new JButton("Virus");
-		reset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//MainProgram.getSimulator().reset();   Maak willekeurige konijnen ziek.
-			}
-		});
-		toolbar.add(virus);
 	
 		
 		// maak een balk met versie nummer onderaan de frame en voeg toe aan de

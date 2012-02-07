@@ -20,8 +20,6 @@ public abstract class Plant implements Actor
 {
     // Whether the plant is alive or not.
     private boolean alive;
-    // determine if the plant is infected or not
-    private boolean infected;
     // The plant's field.
     private Field field;
     // The plant's position in the field.

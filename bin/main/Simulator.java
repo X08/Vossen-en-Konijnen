@@ -23,7 +23,6 @@ import bin.model.Rabbit;
 import bin.model.Wolf;
 
 import bin.model.Plant;
-import bin.model.Grass;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -50,7 +49,7 @@ public class Simulator
     // The probability that a hunter will be created in any given grid position.
     private static double hunter_creation_probability = 0.05;
     
-    private static double grass_creation_probability = 0.020;
+    private static double grass_creation_probability = 0.1;
 
     
     //	animation speed of the thread
@@ -276,9 +275,9 @@ public class Simulator
     	bear_creation_probability = 0.020;
         wolf_creation_probability = 0.020;
         fox_creation_probability = 0.09;
-        rabbit_creation_probability = 0.4;    
-        hunter_creation_probability = 0.001;
-        grass_creation_probability = 0.020;
+        rabbit_creation_probability = 0.3;    
+        hunter_creation_probability = 0.05;
+        grass_creation_probability = 0.1;
     }
     
     /**

@@ -1,7 +1,7 @@
-package bin.model;
+package src.model;
 import java.util.List;
 
-import bin.logic.Location;
+import src.logic.Location;
 
 /**
  * 

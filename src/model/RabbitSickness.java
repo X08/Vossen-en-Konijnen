@@ -1,4 +1,4 @@
-package bin.model;
+package src.model;
 
 
 /**

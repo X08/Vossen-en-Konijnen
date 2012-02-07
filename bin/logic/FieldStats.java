@@ -27,6 +27,7 @@ public class FieldStats
     public static int bearCount;
     public static int rabbitCount;
     public static int wolfCount;
+    public static int grassCount;
 
     /**
      * Construct a FieldStats object.
@@ -72,6 +73,9 @@ public class FieldStats
             
             if(info.getName().equals("bin.model.Wolf")) {
                 wolfCount = info.getCount(); }
+            
+            if(info.getName().equals("bin.model.Grass")) {
+                grassCount = info.getCount(); }
         }
         return buffer.toString();
     }

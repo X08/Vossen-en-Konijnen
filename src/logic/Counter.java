@@ -1,4 +1,4 @@
-package bin.logic;
+package src.logic;
 //import java.awt.Color;
 
 /**

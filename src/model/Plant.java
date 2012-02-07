@@ -1,13 +1,13 @@
-package bin.model;
+package src.model;
 
 import java.util.List;
 import java.util.Random;
 
 
 
-import bin.logic.Field;
-import bin.logic.Location;
-import bin.logic.Randomizer;
+import src.logic.Field;
+import src.logic.Location;
+import src.logic.Randomizer;
 
 
 /**
@@ -20,8 +20,6 @@ public abstract class Plant implements Actor
 {
     // Whether the plant is alive or not.
     private boolean alive;
-    // determine if the plant is infected or not
-    private boolean infected;
     // The plant's field.
     private Field field;
     // The plant's position in the field.

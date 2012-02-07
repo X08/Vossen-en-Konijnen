@@ -1,4 +1,4 @@
-package bin.view;
+package src.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import bin.logic.Counter;
+import src.logic.Counter;
 
 /**
  * maak een histogram aan

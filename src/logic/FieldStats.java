@@ -1,9 +1,9 @@
-package bin.logic;
+package src.logic;
 
 //import java.awt.Color;
 import java.util.HashMap;
 
-import bin.logic.Counter;
+import src.logic.Counter;
 
 
 /**
@@ -27,6 +27,7 @@ public class FieldStats
     public static int bearCount;
     public static int rabbitCount;
     public static int wolfCount;
+    public static int grassCount;
 
     /**
      * Construct a FieldStats object.
@@ -58,20 +59,23 @@ public class FieldStats
             buffer.append(' ');
             
             
-            if(info.getName().equals("bin.model.Fox")) {
+            if(info.getName().equals("src.model.Fox")) {
             	foxCount = info.getCount();
             }
             
-            if(info.getName().equals("bin.model.Bear")) {
+            if(info.getName().equals("src.model.Bear")) {
                 bearCount = info.getCount(); }
             
-            if(info.getName().equals("bin.model.Rabbit")) {
+            if(info.getName().equals("src.model.Rabbit")) {
                 rabbitCount = info.getCount();
                 // System.out.println(rabbitCount); rabbitCount wordt geupdate, Hunter neemt niet over.
                 }
             
-            if(info.getName().equals("bin.model.Wolf")) {
+            if(info.getName().equals("src.model.Wolf")) {
                 wolfCount = info.getCount(); }
+            
+            if(info.getName().equals("src.model.Grass")) {
+                grassCount = info.getCount(); }
         }
         return buffer.toString();
     }
