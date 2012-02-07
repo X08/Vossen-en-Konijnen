@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -7,20 +7,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
-import javax.swing.JTextField;
-
-import view.Field;
 import view.SimulatorView;
 
+import logic.Field;
 import logic.Location;
 import logic.Randomizer;
+
 import model.Actor;
 import model.Animal;
 import model.Bear;
 import model.Fox;
-import model.Grass;
 import model.Hunter;
 import model.Rabbit;
+import model.Wolf;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -37,18 +36,19 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a bear will be created in any given grid position.    
-    private static final double BEAR_CREATION_PROBABILITY = 0.015;
-    // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
-    // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    private static double bear_creation_probability = 0.020;
     // The probability that a hunter will be created in any given grid position.
-    private static final double HUNTER_CREATION_PROBABILITY = 0.0025;
-    // the probability that grass will grow.
-    private static final double GRASS_CREATION_PROBABILITY = 0.03;
+    private static double wolf_creation_probability = 0.020;
+    // The probability that a fox will be created in any given grid position.
+    private static double fox_creation_probability = 0.09;
+    // The probability that a rabbit will be created in any given grid position.
+    private static double rabbit_creation_probability = 0.4;    
+    // The probability that a hunter will be created in any given grid position.
+    private static double hunter_creation_probability = 0.001;
+
     
     //	animation speed of the thread
-    private static int animationSpeed = 1;//100;
+    private static int animationSpeed = 100;
     // List of Actors in the field.
     private List<Actor> actors;
     // The current state of the field.
@@ -92,7 +92,7 @@ public class Simulator
         view.setColor(Fox.class, Color.BLUE);
         view.setColor(Bear.class, Color.CYAN);
         view.setColor(Hunter.class, Color.RED);
-        view.setColor(Grass.class, Color.GREEN);
+        view.setColor(Wolf.class, Color.GRAY);
         // Setup a valid starting point.
         reset();
     }
@@ -126,11 +126,11 @@ public class Simulator
 				        }
 				    }
 	        	}
-        }
-        catch (ConcurrentModificationException e)
-        {
-        	simulateOneStep();
-        }
+        	}
+    		catch (ConcurrentModificationException e)
+    		{	
+    			simulateOneStep();
+        	}
         // Add the newly born foxes and rabbits to the main lists.
         actors.addAll(newActors);
 
@@ -150,6 +150,56 @@ public class Simulator
         // Show the starting state in the view.
         view.showStatus(step, field);
     }
+    
+    /**
+     * setter voor bear_creation_probability
+     * @param bear_creation_probability
+     */
+    public static void setBearCreationProbability(double bear_creation_probability)
+    {
+    	if (bear_creation_probability >= 0)
+    		Simulator.bear_creation_probability = bear_creation_probability;
+    }
+    
+    /**
+     * setter voor wolf_creation_probability
+     * @param wolf_creation_probability
+     */
+    public static void setWolfCreationProbability(double wolf_creation_probability)
+    {
+    	if (wolf_creation_probability >= 0)
+    		Simulator.wolf_creation_probability = wolf_creation_probability;
+    }
+    
+    /**
+     * setter voor fox_creation_probability
+     * @param fox_creation_probability
+     */
+    public static void setFoxCreationProbability(double fox_creation_probability)
+    {
+    	if (fox_creation_probability >= 0)
+    		Simulator.fox_creation_probability = fox_creation_probability;
+    }
+    
+    /**
+     * setter voor rabbit_creation_probability
+     * @param rabbit_creation_probability
+     */
+    public static void setRabbitCreationProbability(double rabbit_creation_probability)
+    {
+    	if (rabbit_creation_probability >= 0)
+    		Simulator.rabbit_creation_probability = rabbit_creation_probability;
+    }
+    
+    /**
+     * setter voor hunter_creation_probability
+     * @param hunter_creation_probability
+     */
+    public static void setHunterCreationProbability(double hunter_creation_probability)
+    {
+    	if (hunter_creation_probability >= 0)
+    		Simulator.hunter_creation_probability = hunter_creation_probability;
+    }    
     
     /**
      * Getter voor view
@@ -179,12 +229,35 @@ public class Simulator
     }
     
     /**
+     * getter voor animationSpeed()
+     * @return animationSpeed of the thread
+     */
+    public int getAnimationSpeed()
+    {
+    	return animationSpeed;
+    }
+    
+    /**
      * setter voor animationSpeed
-     * @param animationSpeed2
+     * @param animationSpeed
      */
     public static void setAnimationSpeed(int animationSpeed)
     {
-    	Simulator.animationSpeed = animationSpeed;
+    	if (animationSpeed >= 0 && animationSpeed <= 1000)
+    		Simulator.animationSpeed = animationSpeed;
+    }
+    
+    /**
+     * default settings
+     */
+    public static void setDefault()
+    {
+    	animationSpeed = 100;
+    	bear_creation_probability = 0.020;
+        wolf_creation_probability = 0.020;
+        fox_creation_probability = 0.09;
+        rabbit_creation_probability = 0.4;    
+        hunter_creation_probability = 0.001;
     }
     
     /**
@@ -196,30 +269,30 @@ public class Simulator
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= fox_creation_probability) {
                     Location location = new Location(row, col);
                     Fox fox = new Fox(true, field, location);
                     actors.add(fox);
                 }
-                if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= rabbit_creation_probability) {
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
                     actors.add(rabbit);
                 }
-                if(rand.nextDouble() <= BEAR_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= bear_creation_probability) {
                     Location location = new Location(row, col);
                     Bear bear = new Bear(true, field, location);
                     actors.add(bear);
                 }
-                if(rand.nextDouble() <= HUNTER_CREATION_PROBABILITY) {
+                else if (rand.nextDouble() <= hunter_creation_probability) {
                     Location location = new Location(row, col);
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
-                if(rand.nextDouble() <= GRASS_CREATION_PROBABILITY) {
-                	Location location = new Location(row, col);
-                	Grass grass = new Grass(true, field, location);
-                	actors.add(grass);
+                else if(rand.nextDouble() <= wolf_creation_probability) {
+                    Location location = new Location(row, col);
+                    Wolf wolf = new Wolf(true, field, location);
+                    actors.add(wolf);
                 }
                 // else leave the location empty.
             }

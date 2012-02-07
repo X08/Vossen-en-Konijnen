@@ -3,13 +3,11 @@ package model;
 import java.util.List;
 import java.util.Iterator;
 
-import view.Field;
+
 //import java.util.Random;
 
+import logic.Field;
 import logic.Location;
-import logic.Counter;
-import view.FieldStats;
-import model.Animal;
 
 
 /**
@@ -32,11 +30,6 @@ public class Hunter implements Actor
     private Location location;
     // Determine if the hunter is alive
     private boolean alive;
-    
-    private FieldStats counters;
-    
-    
-    
     
     // Characteristics shared by all hunters (class variables).
 
@@ -105,44 +98,41 @@ public class Hunter implements Actor
             Object animal = field.getObjectAt(where);
             if(animal instanceof Rabbit) 
             {
-            	
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
-                {
-                	if(!(view.FieldStats.rabbitCount <= 1200)) {
-                    rabbit.setDead(); }
+                { 
+                    rabbit.setDead();
                     return where;
                 }
-            
             }
             else if (animal instanceof Fox)
             {
-            	
                 Fox fox = (Fox) animal;
                 if(fox.isAlive()) 
-                {
-                	
-                	if(!(view.FieldStats.foxCount <= 800)) {
+                { 
                     fox.setDead();
-                    System.out.println("Hunter killed a Fox"); }
-                    return where;
-                }         	
-            }
-            else if (animal instanceof Bear)
-            {
-            	
-            	
-                Bear bear = (Bear) animal;
-                if(bear.isAlive()) 
-                {
-                	if(!(view.FieldStats.bearCount <= 150)) {
-                    bear.setDead();
-                    System.out.println("Hunter killed a Bear"); }
                     return where;
                 }
             	
-            
             }
+            else if (animal instanceof Bear)
+            {
+                Bear bear = (Bear) animal;
+                if(bear.isAlive()) 
+                { 
+                    bear.setDead();
+                    return where;
+                }
+            }
+            else if (animal instanceof Wolf)
+            {
+            	Wolf wolf = (Wolf) animal;
+                if(wolf.isAlive()) 
+                { 
+                    wolf.setDead();
+                    return where;
+                }
+        	}
         }
         return null;
     }

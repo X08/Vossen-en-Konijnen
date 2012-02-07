@@ -11,63 +11,62 @@ import logic.Field;
 import logic.Location;
 import main.MainProgram;
 
+
 /**
- * A simple model of a Bear.
- * Bear age, move, eat fox and wolf, and die.
+ * A simple model of a wolf.
+ * Wolfs age, move, eat Foxes and rabbits, and die.
  * 
  * @author Ieme, Jermo, Yisong
  * @version 2012.01.29
  */
-public class Bear extends Animal
+public class Wolf extends Animal
 {
-    // Characteristics shared by all bears (class variables).
+    // Characteristics shared by all wolfs (class variables).
     
-    // The age at which a bear can start to breed.
-    private static int breeding_age = 12;
-    // The age to which a bear can live.
-    private static int max_age = 300;
-    // The likelihood of a bear breeding.
-    private static double breeding_probability = 0.035;
+    // The age at which a wolf can start to breed.
+    private static int breeding_age = 5;
+    // The age to which a wolf can live.
+    private static int max_age = 200;
+    // The likelihood of a wolf breeding.
+    private static double breeding_probability = 0.05;
     // The maximum number of births.
-    private static int max_litter_size = 2;
-    // The food value of a single wolf and a single fox. In effect, this is the
-    // number of steps a bear can go before it has to eat again.
-    
+    private static int max_litter_size = 3;
 
+    
     /**
-     * Create a bear. A bear can be created as a new born (age zero
+     * Create a wolf. A wolf can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      * 
-     * @param randomAge If true, the bear will have random age and hunger level.
+     * @param randomAge If true, the wolf will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Bear(boolean randomAge, Field field, Location location)
+    public Wolf(boolean randomAge, Field field, Location location)
     {
         super(field, location);
         if(randomAge) {
             setAge(getRandom().nextInt(max_age));
-            setFoodLevel(getRandom().nextInt(FOX_FOOD_VALUE + WOLFS_FOOD_VALUE));
+            setFoodLevel(getRandom().nextInt(RABBIT_FOOD_VALUE + FOX_FOOD_VALUE));
         }
-        else{
-	            setAge(0);
-	            setFoodLevel(FOX_FOOD_VALUE + WOLFS_FOOD_VALUE);      
-        	}
+        else {
+            setAge(0);
+            setFoodLevel(RABBIT_FOOD_VALUE + FOX_FOOD_VALUE);
+        }
     }
     
     /**
-     * This is what the bear does most of the time: it hunts for
-     * foxes and wolfs. In the process, it might breed, die of hunger,
+     * This is what the wolf does most of the time: it hunts for
+     * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param field The field currently occupied.
-     * @param newbears A list to return newly born bears.
+     * @param newWolfs A list to return newly born wolfs.
      */
-    public void act(List<Actor> newBears)
+    public void act(List<Actor> newWolfs)
     {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newBears);            
+            giveBirth(newWolfs);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) { 
@@ -94,36 +93,33 @@ public class Bear extends Animal
 	public boolean survivalInstinct()
     {
     	int foxCount = 0;
+    	int rabbitCount = 0;
     	int wolfCount = 0;
-    	int bearCount = 0;
-//    	int rabbitCount= 0;
     	HashMap<Class, Counter> classStats = MainProgram.getSimulator().getSimulatorView().getStats().getPopulation();
-    	for (Class c : classStats.keySet()) {
+    	for (Class c : classStats.keySet()) {    		
     		Counter info = classStats.get(c);
+		
+		if (info.getName().equals("model.Wolf")) {
+			wolfCount = info.getCount();
+		}
+		if (info.getName().equals("model.Fox")) {
+			foxCount = info.getCount();
+		}
+		if (info.getName().equals("model.Rabbit")) {
+			rabbitCount = info.getCount();
+		}
     		
-    		if (info.getName().equals("model.Wolf")) {
-    			wolfCount = info.getCount();
-    		}
-    		if (info.getName().equals("model.Fox")) {
-    			foxCount = info.getCount();
-    		}
-    		if (info.getName().equals("model.Bear")) {
-    			bearCount = info.getCount();
-    		}
-//    		if (info.getName().equals("model.Rabbit")) {
-//    			rabbitCount = info.getCount();
-//    		}
     	}
-    	if (1.5 *(bearCount + (bearCount * getBreedingProbability() * getMaxLitterSize())) >= foxCount + wolfCount) {
-//    			bearCount >= (rabbitCount + foxCount + wolfCount) * getBreedingProbability() * getMaxLitterSize()) {
+    	if (1.5 *(wolfCount + (wolfCount * getBreedingProbability() * getMaxLitterSize())) >= rabbitCount + foxCount) {
+    		//	wolfCount >= rabbitCount * getBreedingProbability() * getMaxLitterSize() + foxCount * getBreedingProbability() * getMaxLitterSize()) {
     		return false;
     	}	
     	return true;
     }
     
     /**
-     * returns the maximum age of a bear can live
-     * @return int maximum age of a bear can live
+     * returns the maximum age of a wolf can live
+     * @return int maximum age of a wolf can live
      */
     protected int getMaxAge()
     {
@@ -131,19 +127,19 @@ public class Bear extends Animal
     }
     
     /**
-     * Make this bear more hungry. This could result in the bear's death.
+     * Make this wolf more hungry. This could result in the wolf's death.
      */
     private void incrementHunger()
     {
-        setFoodLevel(getFoodLevel() - 1);
+        setFoodLevel(getFoodLevel()  - 1);
         if(getFoodLevel() <= 0) {
             setDead();
         }
     }
     
     /**
-     * Look for foxes and wolfs adjacent to the current location.
-     * Only the first live foxes or wolf is eaten.
+     * Look for rabbits adjacent to the current location.
+     * Only the first live rabbit is eaten.
      * @return Where food was found, or null if it wasn't.
      */
     private Location findFood()
@@ -154,13 +150,11 @@ public class Bear extends Animal
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if(animal instanceof Wolf) 
-            {
-                Wolf wolf = (Wolf) animal;
-                if(wolf.isAlive()) 
-                { 
-                    wolf.setDead();
-                    setFoodLevel(WOLFS_FOOD_VALUE);
+            if(animal instanceof Rabbit) {
+                Rabbit rabbit = (Rabbit) animal;
+                if(rabbit.isAlive()) { 
+                    rabbit.setDead();
+                    setFoodLevel(RABBIT_FOOD_VALUE);
                     return where;
                 }
             }
@@ -175,41 +169,31 @@ public class Bear extends Animal
                 }
             	
             }
-            else if (animal instanceof Rabbit)
-            {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) 
-                { 
-                    rabbit.setDead();
-                    setFoodLevel(RABBIT_FOOD_VALUE);
-                    return where;
-                }         	
-            }
         }
         return null;
     }
     
     /**
-     * Check whether or not this bear is to give birth at this step.
+     * Check whether or not this wolf is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newbearrs A list to return newly born bears.
+     * @param newWolfs A list to return newly born wolfs.
      */
-    private void giveBirth(List<Actor> newBears)
+    private void giveBirth(List<Actor> newWolfs)
     {
-        // New bears are born into adjacent locations.
+        // New wolfs are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Bear young = new Bear(false, field, loc);
-            newBears.add(young);
+            Wolf young = new Wolf(false, field, loc);
+            newWolfs.add(young);
         }
     }
 
     /**
-     * A bear can breed if it has reached the breeding age.
+     * A wolf can breed if it has reached the breeding age.
      */
     protected boolean canBreed()
     {
@@ -223,7 +207,7 @@ public class Bear extends Animal
     public static void setBreedingAge(int breeding_age)
     {
     	if (breeding_age >= 0)
-    		Bear.breeding_age = breeding_age;
+    		Wolf.breeding_age = breeding_age;
     }
     
     
@@ -234,7 +218,7 @@ public class Bear extends Animal
     public static void setMaxAge(int max_age)
     {
     	if (max_age >= 1)
-    		Bear.max_age = max_age;
+    		Wolf.max_age = max_age;
     }
     
     /**
@@ -244,7 +228,7 @@ public class Bear extends Animal
     public static void setBreedingProbability(double breeding_probability)
     {
     	if (breeding_probability >= 0)
-    		Bear.breeding_probability = breeding_probability;
+    		Wolf.breeding_probability = breeding_probability;
     }
     
     /**
@@ -254,7 +238,7 @@ public class Bear extends Animal
     public static void setMaxLitterSize(int max_litter_size)
     {
     	if (max_litter_size >= 1)
-    		Bear.max_litter_size = max_litter_size;
+    		Wolf.max_litter_size = max_litter_size;
     }  
     
     /**
@@ -262,14 +246,15 @@ public class Bear extends Animal
      */
     public static void setDefault()
     {
-    	breeding_age = 12;
-    	max_age = 300;
-    	breeding_probability = 0.35;
-    	max_litter_size = 2;
+    	breeding_age = 5;
+    	max_age = 200;
+    	breeding_probability = 0.05;
+    	max_litter_size = 3;
     }
     
     /**
      * Getter om breeding_age op te halen
+     * @return breeding_age breeding leeftijd
      */
     protected int getBreedingAge()
     {
@@ -277,8 +262,8 @@ public class Bear extends Animal
     }
     
     /**
-     * Getter om MAX_LITTER_SIZE op te halen
-     * @return MAX_LITTER_SIZE maximum litter
+     * Getter om max_litter_size op te halen
+     * @return max_litter_size maximum litter
      */
     protected int getMaxLitterSize()
     {

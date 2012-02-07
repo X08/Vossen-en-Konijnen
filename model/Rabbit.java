@@ -2,9 +2,11 @@ package model;
 
 import java.util.List;
 
-import view.Field;
 
+
+import logic.Field;
 import logic.Location;
+import main.MainProgram;
 
 /**
  * A simple model of a rabbit.
@@ -18,14 +20,14 @@ public class Rabbit extends Animal
     // Characteristics shared by all rabbits (class variables).
 
     // The age at which a rabbit can start to breed.
-    private static int BREEDING_AGE = 5;
+    private static int breeding_age = 1;
     // The age to which a rabbit can live.
-    private static int MAX_AGE = 40;
+    private static int max_age = 100;
     // The likelihood of a rabbit breeding.
-    private static double BREEDING_PROBABILITY = 0.12;
+    private static double breeding_probability = 0.1;
     // The maximum number of births.
-    private static int MAX_LITTER_SIZE = 4;
-    
+    private static int max_litter_size = 12;
+
     
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -40,7 +42,7 @@ public class Rabbit extends Animal
         super(field, location);
         setAge(0);
         if(randomAge) {
-        	setAge(getRandom().nextInt(MAX_AGE));
+        	setAge(getRandom().nextInt(max_age));
         }
     }
     
@@ -65,14 +67,16 @@ public class Rabbit extends Animal
             }
         }
     }
-    
+
     /**
-     * returns the maximum age of a rabbit can live
-     * @return int maximum age of a rabbit can live
+     * Zorgt er voor dat er geen nakomeling worden geboren als er te weinig voesel zijn.
+     * @return true als genoeg voedsel zijn
+     * @return false als niet genoeg voedsel zijn
      */
-    protected int getMaxAge()
+    public boolean survivalInstinct()
     {
-    	return MAX_AGE;
+//    	MainProgram.getSimulator().getSimulatorView().getStats().getPopulation();
+    	return true;
     }
     
     /**
@@ -102,30 +106,91 @@ public class Rabbit extends Animal
     {
         return getAge() >= getBreedingAge();
     }
+
+    /**
+     * setter voor breeding_age
+     * @param breeding_age
+     */
+    public static void setBreedingAge(int breeding_age)
+    {
+    	if (breeding_age >= 0)
+    		Rabbit.breeding_age = breeding_age;
+    }
+    
     
     /**
-     * Getter om BREEDING_AGE op te halen
+     * setter voor max_age
+     * @param max_age
+     */
+    public static void setMaxAge(int max_age)
+    {
+    	if (max_age >= 1)
+    		Rabbit.max_age = max_age;
+    }
+    
+    /**
+     * setter voor breeding_probability
+     * @param breeding_probability
+     */
+    public static void setBreedingProbability(double breeding_probability)
+    {
+    	if (breeding_probability >= 0)
+    		Rabbit.breeding_probability = breeding_probability;
+    }
+    
+    /**
+     * setter voor max_litter_size
+     * @param max_litter_size
+     */
+    public static void setMaxLitterSize(int max_litter_size)
+    {
+    	if (max_litter_size >= 1)
+    		Rabbit.max_litter_size = max_litter_size;
+    }  
+    
+    /**
+     * default settings
+     */
+    public static void setDefault()
+    {
+    	breeding_age = 1;
+    	max_age = 100;
+    	breeding_probability = 0.1;
+    	max_litter_size = 12;
+    }
+    
+    /**
+     * Getter om breeding_age op te halen
      */
     protected int getBreedingAge()
     {
-    	return BREEDING_AGE;
+    	return breeding_age;
     }
     
     /**
-     * Getter om MAX_LITTER_SIZE op te halen
-     * @return MAX_LITTER_SIZE maximum litter
+     * returns the maximum age of a rabbit can live
+     * @return int maximum age of a rabbit can live
+     */
+    protected int getMaxAge()
+    {
+    	return max_age;
+    }
+    
+    /**
+     * Getter om max_litter_size op te halen
+     * @return max_litter_size maximum litter
      */
     protected int getMaxLitterSize()
     {
-    	return MAX_LITTER_SIZE;
+    	return max_litter_size;
     }
     
     /**
-     * Getter om BREEDING_PROBABILITY op te halen
-     * @return BREEDING_PROBABILITY breeding kansen
+     * Getter om breeding_probability op te halen
+     * @return breeding_probability breeding kansen
      */
     protected double getBreedingProbability()
     {
-    	return BREEDING_PROBABILITY;
+    	return breeding_probability;
     }
 }

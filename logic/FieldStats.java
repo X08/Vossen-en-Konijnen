@@ -1,9 +1,8 @@
-package view;
+package logic;
 
 //import java.awt.Color;
 import java.util.HashMap;
 
-import logic.Counter;
 
 
 
