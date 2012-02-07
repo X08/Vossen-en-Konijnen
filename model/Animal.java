@@ -16,10 +16,12 @@ import logic.Randomizer;
  * @author Ieme, Jermo, Yisong
  * @version 2012.01.29
  */
-public abstract class Animal implements Actor
+public abstract class Animal implements Actor, RabbitSickness
 {
     // Whether the animal is alive or not.
     private boolean alive;
+    // determine if the animal is infected or not
+    private boolean infected;
     // The animal's field.
     private Field field;
     // The animal's position in the field.
@@ -36,7 +38,7 @@ public abstract class Animal implements Actor
     public static final int RABBIT_FOOD_VALUE = 9;
     public static final int GRASS_FOOD_VALUE = 4;
     // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
+    protected static final Random rand = Randomizer.getRandom();
     
     /**
      * Create a new animal at location in field.
@@ -65,6 +67,21 @@ public abstract class Animal implements Actor
      */
     public abstract boolean survivalInstinct();
     
+	/**
+	 * @return true if infected
+	 * @return false if not infected
+	 */
+	public abstract boolean isInfected();
+	
+	/**
+	 * setter voor infected
+	 * @param infected
+	 */
+	public void setInfected(boolean infected)
+	{
+		this.infected = infected;
+	}
+	
     /**
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
@@ -200,7 +217,16 @@ public abstract class Animal implements Actor
 	{
 		return rand;
 	}
-
+	
+	/**
+	 * getter om infected op te halen
+	 * @return infected boolean
+	 */
+	protected boolean getInfected()
+	{
+		return infected;
+	}
+	
     /**
      * Getter om MAX_LITTER_SIZE op te halen
      * @return MAX_LITTER_SIZE maximum litter

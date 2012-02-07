@@ -106,12 +106,20 @@ public class Fox extends Animal
     		}
     	}
     	if (1.5 *(foxCount + (foxCount * getBreedingProbability() * getMaxLitterSize())) >= rabbitCount) {
-    			//foxCount >= rabbitCount * getBreedingProbability() * getMaxLitterSize() ) {
     		return false;
     	}	
     	return true;
     }
     
+	/**
+	 * @return true if infected
+	 * @return false if not infected
+	 */
+	public boolean isInfected()
+	{
+		return false;
+	}
+	
     /**
      * returns the maximum age of a fox can live
      * @return int maximum age of a fox can live

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -27,6 +28,8 @@ public class Rabbit extends Animal
     private static double breeding_probability = 0.1;
     // The maximum number of births.
     private static int max_litter_size = 12;
+    // kans op infectie
+    private double rabbit_infection_chance = 0.9;
 
     
     /**
@@ -55,7 +58,8 @@ public class Rabbit extends Animal
     {
         incrementAge();
         if(isAlive()) {
-            giveBirth(newRabbits);            
+            isThereVirus();
+        	giveBirth(newRabbits);            
             // Try to move into a free location.
             Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
@@ -79,6 +83,43 @@ public class Rabbit extends Animal
     	return true;
     }
     
+	/**
+	 * @return true if infected
+	 * @return false if not infected
+	 */
+	public boolean isInfected()
+	{
+		int random = (rand.nextInt(100) + 1)/100;
+		if (random <= rabbit_infection_chance)
+		{
+			setInfected(true);
+			return true;
+		}
+		return false;
+	}
+	
+    /**
+     * check if rabbit is surround by rabbitvirus.
+     * @return true if it is
+     */
+    private boolean isThereVirus()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object animal = field.getObjectAt(where);
+            if(animal instanceof Rabbit) {
+                Rabbit rabbit = (Rabbit) animal;
+                if(rabbit.getInfected()) {
+                	isInfected();
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Check whether or not this rabbit is to give birth at this step.
      * New births will be made into free adjacent locations.
@@ -192,5 +233,14 @@ public class Rabbit extends Animal
     protected double getBreedingProbability()
     {
     	return breeding_probability;
+    }
+    
+    /**
+     * getter om rabbit_infection op te halen
+     * @return rabbit_infection
+     */
+    protected double getRabbitInfectionChance()
+    {
+    	return rabbit_infection_chance;
     }
 }

@@ -99,24 +99,31 @@ public class Wolf extends Animal
     	for (Class c : classStats.keySet()) {    		
     		Counter info = classStats.get(c);
 		
-		if (info.getName().equals("model.Wolf")) {
-			wolfCount = info.getCount();
-		}
-		if (info.getName().equals("model.Fox")) {
-			foxCount = info.getCount();
-		}
-		if (info.getName().equals("model.Rabbit")) {
-			rabbitCount = info.getCount();
-		}
+			if (info.getName().equals("model.Wolf")) {
+				wolfCount = info.getCount();
+			}
+			if (info.getName().equals("model.Fox")) {
+				foxCount = info.getCount();
+			}
+			if (info.getName().equals("model.Rabbit")) {
+				rabbitCount = info.getCount();
+			}
     		
     	}
-    	if (1.5 *(wolfCount + (wolfCount * getBreedingProbability() * getMaxLitterSize())) >= rabbitCount + foxCount) {
-    		//	wolfCount >= rabbitCount * getBreedingProbability() * getMaxLitterSize() + foxCount * getBreedingProbability() * getMaxLitterSize()) {
+    	if (1.5 *(wolfCount + (wolfCount * getBreedingProbability() * getMaxLitterSize())) >= 0.5 * rabbitCount + foxCount) {
     		return false;
     	}	
     	return true;
     }
-    
+	
+    /**
+	 * @return true if infected
+	 * @return false if not infected
+	 */
+	public boolean isInfected()
+	{
+		return false;
+	}
     /**
      * returns the maximum age of a wolf can live
      * @return int maximum age of a wolf can live

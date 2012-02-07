@@ -110,17 +110,22 @@ public class Bear extends Animal
     		if (info.getName().equals("model.Bear")) {
     			bearCount = info.getCount();
     		}
-//    		if (info.getName().equals("model.Rabbit")) {
-//    			rabbitCount = info.getCount();
-//    		}
     	}
-    	if (1.5 *(bearCount + (bearCount * getBreedingProbability() * getMaxLitterSize())) >= foxCount + wolfCount) {
-//    			bearCount >= (rabbitCount + foxCount + wolfCount) * getBreedingProbability() * getMaxLitterSize()) {
+    	if (1.5 *(bearCount + (bearCount * getBreedingProbability() * getMaxLitterSize())) >= 0.5 * foxCount + wolfCount) {
     		return false;
     	}	
     	return true;
     }
     
+	/**
+	 * @return true if infected
+	 * @return false if not infected
+	 */
+	public boolean isInfected()
+	{
+		return false;
+	}
+	
     /**
      * returns the maximum age of a bear can live
      * @return int maximum age of a bear can live
