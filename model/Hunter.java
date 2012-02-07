@@ -100,36 +100,43 @@ public class Hunter implements Actor
             {
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
-                { 
-                    rabbit.setDead();
+                {
+                	if(!(view.FieldStats.rabbitCount <= 150)) {
+                    rabbit.setDead(); }
                     return where;
                 }
             }
             else if (animal instanceof Fox)
             {
-                Fox fox = (Fox) animal;
+            	
+                Fox fox = (Fox) animal; 
                 if(fox.isAlive()) 
-                { 
-                    fox.setDead();
+                {
+                	if(!(view.FieldStats.foxCount <= 150)) {
+                    fox.setDead(); }
                     return where;
                 }
             	
             }
             else if (animal instanceof Bear)
             {
+            	
                 Bear bear = (Bear) animal;
                 if(bear.isAlive()) 
                 { 
-                    bear.setDead();
+                	if(!(view.FieldStats.bearCount <= 150)) {
+                	bear.setDead(); }
                     return where;
                 }
             }
             else if (animal instanceof Wolf)
             {
+            	
             	Wolf wolf = (Wolf) animal;
                 if(wolf.isAlive()) 
                 { 
-                    wolf.setDead();
+                	if(!(view.FieldStats.wolfCount <= 150)) {
+                	wolf.setDead(); }
                     return where;
                 }
         	}

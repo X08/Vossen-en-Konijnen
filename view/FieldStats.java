@@ -23,6 +23,11 @@ public class FieldStats
 	private HashMap<Class, Counter> counters;
     // Whether the counters are currently up to date.
     private boolean countsValid;
+    
+    public static int foxCount = 0;
+    public static int bearCount = 0;
+    public static int rabbitCount = 0;
+    public static int wolfCount = 0;
 
     /**
      * Construct a FieldStats object.
@@ -52,6 +57,20 @@ public class FieldStats
             buffer.append(": ");
             buffer.append(info.getCount());
             buffer.append(' ');
+            
+            if(info.getName().equals("model.Fox")) {
+            	foxCount = info.getCount(); }
+            
+            if(info.getName().equals("model.Bear")) {
+                bearCount = info.getCount(); }
+            
+            if(info.getName().equals("model.Rabbit")) {
+                rabbitCount = info.getCount(); }
+            
+            if(info.getName().equals("model.Wolf")) {
+                wolfCount = info.getCount(); }
+            
+            
         }
         return buffer.toString();
     }

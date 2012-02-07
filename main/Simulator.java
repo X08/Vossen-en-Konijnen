@@ -44,7 +44,7 @@ public class Simulator
     // The probability that a rabbit will be created in any given grid position.
     private static double rabbit_creation_probability = 0.4;    
     // The probability that a hunter will be created in any given grid position.
-    private static double hunter_creation_probability = 0.001;
+    private static double hunter_creation_probability = 0.05;
 
     
     //	animation speed of the thread
