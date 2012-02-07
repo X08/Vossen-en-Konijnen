@@ -101,9 +101,9 @@ public class Hunter implements Actor
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
                 {
-                	if(!(view.FieldStats.rabbitCount <= 1000)) {
+                	if(!(logic.FieldStats.rabbitCount <= 1000)) {
                     rabbit.setDead();
-                    System.out.println("Hunter killed a Rabbit"); }
+                    }
                     return where;
                 }
             }
@@ -113,7 +113,7 @@ public class Hunter implements Actor
                 Fox fox = (Fox) animal; 
                 if(fox.isAlive()) 
                 {
-                	if(!(view.FieldStats.foxCount <= 400)) {
+                	if(!(logic.FieldStats.foxCount <= 400)) {
                     fox.setDead(); }
                     return where;
                 }
@@ -125,7 +125,7 @@ public class Hunter implements Actor
                 Bear bear = (Bear) animal;
                 if(bear.isAlive()) 
                 { 
-                	if(!(view.FieldStats.bearCount <= 400)) {
+                	if(!(logic.FieldStats.bearCount <= 400)) {
                 	bear.setDead(); }
                     return where;
                 }
@@ -136,7 +136,7 @@ public class Hunter implements Actor
             	Wolf wolf = (Wolf) animal;
                 if(wolf.isAlive()) 
                 { 
-                	if(!(view.FieldStats.wolfCount <= 400)) {
+                	if(!(logic.FieldStats.wolfCount <= 400)) {
                 	wolf.setDead(); }
                     return where;
                 }

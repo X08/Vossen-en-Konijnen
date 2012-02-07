@@ -23,10 +23,10 @@ public class FieldStats
     // Whether the counters are currently up to date.
     private boolean countsValid;
     
-    public static int foxCount = 0;
-    public static int bearCount = 0;
-    public static int rabbitCount = 0;
-    public static int wolfCount = 0;
+    public static int foxCount;
+    public static int bearCount;
+    public static int rabbitCount;
+    public static int wolfCount;
 
     /**
      * Construct a FieldStats object.
@@ -57,6 +57,7 @@ public class FieldStats
             buffer.append(info.getCount());
             buffer.append(' ');
             
+            
             if(info.getName().equals("model.Fox")) {
             	foxCount = info.getCount(); }
             
@@ -64,7 +65,9 @@ public class FieldStats
                 bearCount = info.getCount(); }
             
             if(info.getName().equals("model.Rabbit")) {
-                rabbitCount = info.getCount(); }
+                rabbitCount = info.getCount();
+                // System.out.println(rabbitCount); rabbitCount wordt geupdate, Hunter neemt niet over.
+                }
             
             if(info.getName().equals("model.Wolf")) {
                 wolfCount = info.getCount(); }
