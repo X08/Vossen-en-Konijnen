@@ -1,1 +1,49 @@
-<sequence-diagram version="1.0.7" icons="true" automaticImage="PNG"/>
+<sequence-diagram version="1.0.7" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="bin.main.MainProgram" project="Vossen-en-Konijnen" 
+    file="/Vossen-en-Konijnen/bin/main/MainProgram.java" binary="false" label="mainProgram" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="106" y="0"/>    
+    <execution id="2">      
+      <position height="63" width="0" x="0" y="93"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="bin.main.MainProgram" project="Vossen-en-Konijnen" 
+    file="/Vossen-en-Konijnen/bin/main/MainProgram.java" binary="false" label="mainProgram1" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="4">      
+      <position height="21" width="0" x="0" y="114"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="63" width="0" x="0" y="179"/>    
+    </execution>  
+  </object>  
+  <object id="9" language="java" name="bin.main.Simulator" project="Vossen-en-Konijnen" 
+    file="/Vossen-en-Konijnen/bin/main/Simulator.java" binary="false" label="simulator" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="8">      
+      <position height="21" width="0" x="0" y="200"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="63" width="0" x="0" y="268"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="bin.model.Actor" project="Vossen-en-Konijnen" 
+    file="/Vossen-en-Konijnen/bin/model/Actor.java" binary="false" label="actor" type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="289"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="main(java.lang.String[]):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="7" operation="Simulator()">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="11" operation="act(java.util.List&lt;Actor&gt;):void">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>
+</sequence-diagram>

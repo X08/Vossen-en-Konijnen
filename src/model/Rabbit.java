@@ -61,6 +61,7 @@ public class Rabbit extends Animal
     public void act(List<Actor> newRabbits)
     {
         incrementAge();
+        incrementHunger();
         if(isAlive()) {
             isThereVirus();
         	giveBirth(newRabbits);            
@@ -98,6 +99,13 @@ public class Rabbit extends Animal
             }
         }
         return null;
+    }
+    
+    private void incrementHunger() {
+        setFoodLevel(getFoodLevel()  - 1);
+        if(getFoodLevel() <= 0) {
+            setDead();
+        }
     }
 
     /**

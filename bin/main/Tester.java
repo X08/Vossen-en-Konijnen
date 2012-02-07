@@ -8,7 +8,14 @@ public class Tester {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		if (bin.logic.FieldStats.rabbitCount == 0) {
+		fail("Counter did not collect data!");
+		}
+	}
+	
+	@Test
+	public void test2() {
+		fail("No second test has been entered");
 	}
 
 }
