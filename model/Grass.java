@@ -1,153 +1,192 @@
 package model;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Iterator;
 
-import view.Field;
+
 //import java.util.Random;
 
+import logic.Field;
 import logic.Location;
-import logic.Randomizer;
-
-public class Grass implements Actor {
-  // The field for grass
-  private Field field;
-  // The grass position in the field.
-  private Location location;
-  // Determine if the grass is alive
-  private boolean alive;
-  //Grass age.
-  private int age;
-  //The age at which grass can start to breed.
-  private static int BREEDING_AGE = 3;
-  // The age to which grass can live.
-  private static int MAX_AGE = 1000;
-  // The likelihood of grass breeding.
-  private static double BREEDING_PROBABILITY = 0.5;
-  // The maximum number of births.
-  private static int MAX_LITTER_SIZE = 10;
-  //A shared random number generator to control breeding.
-  private static final Random rand = Randomizer.getRandom();
 
 
-	public Grass(boolean randomAge, Field field, Location location) {
-		this.field = field;
-		this.location = location;
-		setAge(0);
-        if(randomAge) {
-        	setAge(getRandom().nextInt(MAX_AGE));
-        }
-	}
-	
-	public Field getField() {
-		return field;
-	}
-	
-	public void setAge(int age) 
-	{
-		this.age = age;
-	}
-	
-	public Location getLocation() {
-		return location;
-	}
-	
-	public boolean isAlive()
+/**
+ * 
+ * A class representing shared characteristics of grasss.
+ * A simple model of a grass
+ * Grasss move and shoot.
+ * 
+ * @author Ieme, Jermo, Yisong
+ * @version 2012.01.29
+ */
+public class Grass implements Actor
+{
+
+//    // Whether the grass is alive or not.
+//    private boolean alive = true;
+    // The grass's field.
+    private Field field;
+    // The grass's position in the field.
+    private Location location;
+    // Determine if the grass is alive
+    private boolean alive;
+    
+    // Characteristics shared by all grasss (class variables).
+
+    // A shared random number generator to control breeding.
+//    private static final Random rand = Randomizer.getRandom();
+    
+    /**
+     * Create a grass. 
+     * @param field The field currently occupied.
+     * @param location The location within the field.
+     */
+    public Grass(Field field, Location location)
+    {
+        this.field = field;
+        this.location = location;
+    }
+
+    /**
+     * Check whether the grass is alive or not.
+     * @return true if the grass is still alive.
+     */
+    public boolean isAlive()
     {
     	return alive;
     }
-	
-	public int getMaxAge()
+    
+    /**
+     * This is what the bear does most of the time: it hunts for
+     * rabbits. In the process, it might breed, die of hunger,
+     * or die of old age.
+     * @param field The field currently occupied.
+     * @param newbears A list to return newly born bears.
+     */
+    
+    public void act(List<Actor> newGrass)
     {
-    	return MAX_AGE;
-    }
-	
-	public void incrementAge()
-    {
-        setAge(getAge() + 1);
-        if(getAge() > getMaxAge()) {
-            setDead();
+    	// Move towards a source of food if found.
+        Location newLocation = findAnimal();
+        if(newLocation == null) { 
+            // No food found - try to move to a free location.
+            newLocation = getField().freeAdjacentLocation(getLocation());
         }
-    }
-	
-	protected int getAge() 
-	{
-		return age;
-	}
-	
-	public Random getRandom()
-	{
-		return rand;
-	}
-		
-	public void act(List<Actor> newGrass)
-    {
-		incrementAge();
-        if(isAlive()) {
-            giveBirth(newGrass);
+        // See if it was possible to move.
+        if(newLocation != null) {
+            setLocation(newLocation);
         }
-        else {
-            // Overcrowding.
-            setDead();
-        }
+        else{
+            	// Overcrowding.
+            	setDead();
+        	}
     }
-        
-    protected void setDead()
+
+
+    /**
+     * Look for an animal adjacent to the current location.
+     * Only the first live animal is shoot.
+     * @return Where an animal is found, or null if it wasn't.
+     */
+    private Location findAnimal()
     {
-        alive = false;
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object animal = field.getObjectAt(where);
+            if(animal instanceof Rabbit) 
+            {
+                Rabbit rabbit = (Rabbit) animal;
+                if(rabbit.isAlive()) 
+                {
+                	if(!(logic.FieldStats.rabbitCount <= 1000)) {
+                    rabbit.setDead();
+                    }
+                    return where;
+                }
+            }
+            else if (animal instanceof Fox)
+            {
+            	
+                Fox fox = (Fox) animal; 
+                if(fox.isAlive()) 
+                {
+                	if(!(logic.FieldStats.foxCount <= 400)) {
+                    fox.setDead(); }
+                    return where;
+                }
+            	
+            }
+            else if (animal instanceof Bear)
+            {
+            	
+                Bear bear = (Bear) animal;
+                if(bear.isAlive()) 
+                { 
+                	if(!(logic.FieldStats.bearCount <= 400)) {
+                	bear.setDead(); }
+                    return where;
+                }
+            }
+            else if (animal instanceof Wolf)
+            {
+            	
+            	Wolf wolf = (Wolf) animal;
+                if(wolf.isAlive()) 
+                { 
+                	if(!(logic.FieldStats.wolfCount <= 400)) {
+                	wolf.setDead(); }
+                    return where;
+                }
+        	}
+        }
+        return null;
+    }
+    
+    /**
+     * Indicate that the grass is no longer alive.
+     * It is removed from the field.
+     */
+    public void setDead()
+    {
+//        alive = false;
         if(location != null) {
             field.clear(location);
             location = null;
             field = null;
         }
     }
-        
-    protected int breed()
+    
+    /**
+     * Return the grass's location.
+     * @return The grass's location.
+     */
+    public Location getLocation()
     {
-        int births = 0;
-        if(canBreed() && getRandom().nextDouble() <= getBreedingProbability()) {
-            births = getRandom().nextInt(getMaxLitterSize()) + 1;
-        }
-        return births;
-    }
-        
-    private void giveBirth(List<Actor> newGrass)
-    {
-        // New grass is born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Grass young = new Grass(false, field, loc);
-            newGrass.add(young);
-        }
+        return location;
     }
     
+    /**
+     * Place the grass at the new location in the given field.
+     * @param newLocation The grass's new location.
+     */
     public void setLocation(Location newLocation)
     {
-        newLocation = location;
+        if(location != null) {
+            field.clear(location);
+        }
+        location = newLocation;
+        field.place(this, newLocation);
     }
     
-    public boolean canBreed()
+    /**
+     * Return the grass's field.
+     * @return Field the grass's field.
+     */
+    public Field getField()
     {
-        return getAge() >= getBreedingAge();
-    }
-    
-    public int getBreedingAge()
-    {
-    	return BREEDING_AGE;
-    }
-    
-    public int getMaxLitterSize()
-    {
-    	return MAX_LITTER_SIZE;
-    }
-    
-    public double getBreedingProbability()
-    {
-    	return BREEDING_PROBABILITY;
-    }
-    
+        return field;
+    }   
 }

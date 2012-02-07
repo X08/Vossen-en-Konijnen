@@ -17,6 +17,7 @@ import model.Actor;
 import model.Animal;
 import model.Bear;
 import model.Fox;
+import model.Grass;
 import model.Hunter;
 import model.Rabbit;
 import model.Wolf;
@@ -303,6 +304,11 @@ public class Simulator
                     Location location = new Location(row, col);
                     Wolf wolf = new Wolf(true, field, location);
                     actors.add(wolf);
+                }
+                else if(rand.nextDouble() <= grass_creation_probability) {
+                    Location location = new Location(row, col);
+                    Grass grass = new Grass(field, location);
+                    actors.add(grass);
                 }
                 // else leave the location empty.
             }
