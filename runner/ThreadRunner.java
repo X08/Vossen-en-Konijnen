@@ -1,7 +1,7 @@
 package runner;
 
-import controller.Simulator;
 import main.MainProgram;
+import main.Simulator;
 /**
  * Allow the animation to be shown.
  * 
@@ -16,9 +16,11 @@ public class ThreadRunner implements Runnable
 	private boolean threadRun;
 	
 	
+	/**
+	 * leeg constructor
+	 */
 	public ThreadRunner() 
 	{
-	
 	}
 	
     /**
@@ -37,17 +39,17 @@ public class ThreadRunner implements Runnable
     		this.numSteps += numSteps;	//	voor als het wel moet stacken
     	}
     	
-    	try{
+//    	try{
     		if (!threadRun && Thread.currentThread().isAlive())
     		{
     			new Thread(this).start();
     		}
-    	} 
-    	catch (IllegalThreadStateException e)
-    	{
-    		infinite = false;
-        	System.out.println("InterruptedException");
-    	}
+//    	} 
+//    	catch (IllegalThreadStateException e)
+//    	{
+//    		infinite = false;
+//        	System.out.println("InterruptedException");
+//    	}
 	}
 
     /**
@@ -81,7 +83,7 @@ public class ThreadRunner implements Runnable
 			}
 			
 			try {
-				Thread.sleep(0);
+				Thread.sleep(simulator.getAnimationSpeed());
 			} 
 			catch (Exception e) 
 			{

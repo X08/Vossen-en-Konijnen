@@ -13,8 +13,9 @@ import logic.Counter;
  * @author Ieme, Jermo, Yisong
  * @version 2012.01.31
  */
-public class Histogram extends JPanel
+public class Histogram extends JPanel implements AbstractView
 {
+	private static final long serialVersionUID = 1707235892146938612L;
 	//	hashmap die hoeveelheid per kleur bij houdt
 	private HashMap<Color, Counter> stats;
 	//	hoogte van de histogram

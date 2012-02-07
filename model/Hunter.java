@@ -3,9 +3,10 @@ package model;
 import java.util.List;
 import java.util.Iterator;
 
-import view.Field;
+
 //import java.util.Random;
 
+import logic.Field;
 import logic.Location;
 
 
@@ -99,31 +100,47 @@ public class Hunter implements Actor
             {
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) 
-                { 
+                {
+                	if(!(view.FieldStats.rabbitCount <= 1000)) {
                     rabbit.setDead();
+                    System.out.println("Hunter killed a Rabbit"); }
                     return where;
                 }
             }
             else if (animal instanceof Fox)
             {
-                Fox fox = (Fox) animal;
+            	
+                Fox fox = (Fox) animal; 
                 if(fox.isAlive()) 
-                { 
-                    fox.setDead();
+                {
+                	if(!(view.FieldStats.foxCount <= 400)) {
+                    fox.setDead(); }
                     return where;
                 }
             	
             }
             else if (animal instanceof Bear)
             {
+            	
                 Bear bear = (Bear) animal;
                 if(bear.isAlive()) 
                 { 
-                    bear.setDead();
+                	if(!(view.FieldStats.bearCount <= 400)) {
+                	bear.setDead(); }
                     return where;
                 }
-            	
             }
+            else if (animal instanceof Wolf)
+            {
+            	
+            	Wolf wolf = (Wolf) animal;
+                if(wolf.isAlive()) 
+                { 
+                	if(!(view.FieldStats.wolfCount <= 400)) {
+                	wolf.setDead(); }
+                    return where;
+                }
+        	}
         }
         return null;
     }

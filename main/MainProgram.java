@@ -1,6 +1,5 @@
 package main;
 
-import controller.Simulator;
 
 /**
  * Main class to operate first

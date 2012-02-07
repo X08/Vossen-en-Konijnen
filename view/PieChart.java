@@ -13,8 +13,9 @@ import logic.Counter;
  * @author Ieme, Jermo, Yisong
  * @version 2012.01.31
  */
-public class PieChart extends JPanel
+public class PieChart extends JPanel implements AbstractView
 {
+	private static final long serialVersionUID = 8331776231101517209L;
 	//	width of the frame
 	private int width;
 	//	height of the frame
@@ -28,8 +29,7 @@ public class PieChart extends JPanel
 	 * leeg constructor
 	 */
 	public PieChart()
-	{
-		
+	{	
 	}
 	
 	/**

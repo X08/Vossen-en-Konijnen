@@ -6,13 +6,13 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import controller.Simulator;
+
 
 import logic.Counter;
-import main.MainProgram;
 
 public class HistoryView extends JPanel
 {
+	private static final long serialVersionUID = 638497149347812303L;
 	//	text area
 	private JTextArea textArea;
 //	private boolean isReset = false;
@@ -49,8 +49,6 @@ public class HistoryView extends JPanel
 //        int step = MainProgram.getSimulator().getStep();
 //        Simulator simulator = MainProgram.getSimulator();
 //        FieldStats fieldStats = simulator.getSimulatorView().getStats();
-////   
-////        
 //        if(!fieldStats.getCountsValid()) {
 //            fieldStats.generateCounts(simulator.getField());
 //        }

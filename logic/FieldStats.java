@@ -1,10 +1,9 @@
-package view;
+package logic;
 
 //import java.awt.Color;
 import java.util.HashMap;
 
 import logic.Counter;
-
 
 
 /**
@@ -58,8 +57,6 @@ public class FieldStats
             buffer.append(info.getCount());
             buffer.append(' ');
             
-            System.out.println(info.getName());
-            
             if(info.getName().equals("model.Fox")) {
             	foxCount = info.getCount(); }
             
@@ -71,8 +68,6 @@ public class FieldStats
             
             if(info.getName().equals("model.Wolf")) {
                 wolfCount = info.getCount(); }
-            
-            
         }
         return buffer.toString();
     }

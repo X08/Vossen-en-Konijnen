@@ -1,11 +1,13 @@
 package model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 
-import view.Field;
-
+import logic.Counter;
+import logic.Field;
 import logic.Location;
+import main.MainProgram;
 
 
 /**
@@ -20,17 +22,15 @@ public class Fox extends Animal
     // Characteristics shared by all foxes (class variables).
     
     // The age at which a fox can start to breed.
-    private static int BREEDING_AGE =	15;
+    private static int breeding_age = 3;
     // The age to which a fox can live.
-    private static int MAX_AGE = 150;
+    private static int max_age = 150;
     // The likelihood of a fox breeding.
-    private static double BREEDING_PROBABILITY = 0.08;
+    private static double breeding_probability = 0.075;
     // The maximum number of births.
-    private static int MAX_LITTER_SIZE = 4;
+    private static int max_litter_size = 8;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 9;
-    
     
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -44,7 +44,7 @@ public class Fox extends Animal
     {
         super(field, location);
         if(randomAge) {
-            setAge(getRandom().nextInt(MAX_AGE));
+            setAge(getRandom().nextInt(max_age));
             setFoodLevel(getRandom().nextInt(RABBIT_FOOD_VALUE));
         }
         else {
@@ -84,12 +84,41 @@ public class Fox extends Animal
     }
     
     /**
+     * Zorgt er voor dat er geen nakomeling worden geboren als er te weinig voesel zijn.
+     * @return true als genoeg voedsel zijn
+     * @return false als niet genoeg voedsel zijn
+     */
+    @SuppressWarnings("rawtypes")
+	public boolean survivalInstinct()
+    {
+    	int foxCount = 0;
+    	int rabbitCount = 0;
+    	HashMap<Class, Counter> classStats = MainProgram.getSimulator().getSimulatorView().getStats().getPopulation();
+    	
+    	for (Class c : classStats.keySet()) {
+    		Counter info = classStats.get(c);
+    		
+    		if (info.getName().equals("model.Fox")) {
+    			foxCount = info.getCount();
+    		}
+    		if (info.getName().equals("model.Rabbit")) {
+    			rabbitCount = info.getCount();
+    		}
+    	}
+    	if (1.5 *(foxCount + (foxCount * getBreedingProbability() * getMaxLitterSize())) >= rabbitCount) {
+    			//foxCount >= rabbitCount * getBreedingProbability() * getMaxLitterSize() ) {
+    		return false;
+    	}	
+    	return true;
+    }
+    
+    /**
      * returns the maximum age of a fox can live
      * @return int maximum age of a fox can live
      */
     protected int getMaxAge()
     {
-    	return MAX_AGE;
+    	return max_age;
     }
     
     /**
@@ -156,29 +185,81 @@ public class Fox extends Animal
     }
     
     /**
-     * Getter om BREEDING_AGE op te halen
-     * @return BREEDING_AGE breeding leeftijd
+     * setter voor breeding_age
+     * @param breeding_age
+     */
+    public static void setBreedingAge(int breeding_age)
+    {
+    	if (breeding_age >= 0)
+    		Fox.breeding_age = breeding_age;
+    }
+    
+    
+    /**
+     * setter voor max_age
+     * @param max_age
+     */
+    public static void setMaxAge(int max_age)
+    {
+    	if (max_age >= 1)
+    		Fox.max_age = max_age;
+    }
+    
+    /**
+     * setter voor breeding_probability
+     * @param breeding_probability
+     */
+    public static void setBreedingProbability(double breeding_probability)
+    {
+    	if (breeding_probability >= 0)
+    		Fox.breeding_probability = breeding_probability;
+    }
+    
+    /**
+     * setter voor max_litter_size
+     * @param max_litter_size
+     */
+    public static void setMaxLitterSize(int max_litter_size)
+    {
+    	if (max_litter_size >= 1)
+    		Fox.max_litter_size = max_litter_size;
+    }  
+    
+    /**
+     * default settings
+     */
+    public static void setDefault()
+    {
+    	breeding_age = 3;
+    	max_age = 150;
+    	breeding_probability = 0.075;
+    	max_litter_size = 8;
+    } 
+    
+    /**
+     * Getter om breeding_age op te halen
+     * @return breeding_age breeding leeftijd
      */
     protected int getBreedingAge()
     {
-    	return BREEDING_AGE;
+    	return breeding_age;
     }
     
     /**
-     * Getter om MAX_LITTER_SIZE op te halen
-     * @return MAX_LITTER_SIZE maximum litter
+     * Getter om max_litter_size op te halen
+     * @return max_litter_size maximum litter
      */
     protected int getMaxLitterSize()
     {
-    	return MAX_LITTER_SIZE;
+    	return max_litter_size;
     }
     
     /**
-     * Getter om BREEDING_PROBABILITY op te halen
-     * @return BREEDING_PROBABILITY breeding kansen
+     * Getter om breeding_probability op te halen
+     * @return breeding_probability breeding kansen
      */
     protected double getBreedingProbability()
     {
-    	return BREEDING_PROBABILITY;
+    	return breeding_probability;
     }
 }
