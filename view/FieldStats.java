@@ -58,6 +58,8 @@ public class FieldStats
             buffer.append(info.getCount());
             buffer.append(' ');
             
+            System.out.println(info.getName());
+            
             if(info.getName().equals("model.Fox")) {
             	foxCount = info.getCount(); }
             
